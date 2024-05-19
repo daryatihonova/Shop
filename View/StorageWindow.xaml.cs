@@ -16,11 +16,11 @@ using System.Windows.Threading;
 namespace Shop.View
 {
     /// <summary>
-    /// Логика взаимодействия для ProductWindow.xaml
+    /// Логика взаимодействия для StorageWindow.xaml
     /// </summary>
-    public partial class ProductWindow : Window
+    public partial class StorageWindow : Window
     {
-        public ProductWindow()
+        public StorageWindow()
         {
             InitializeComponent();
             DispatcherTimer LiveTime = new DispatcherTimer();
@@ -32,6 +32,7 @@ namespace Shop.View
         {
             LiveTimeLabel.Content = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
         }
+
         private void back_admin_window(object sender, EventArgs e)
         {
             MainAdminWindow mainAdminWindow = new MainAdminWindow();
@@ -39,12 +40,11 @@ namespace Shop.View
             mainAdminWindow.Show();
         }
 
-        private void click_new_product(object sender, EventArgs e)
+        private void click_storage(object sender, RoutedEventArgs e)
         {
-            NewProduct newProduct = new NewProduct();
+            ChangeStorage  changeStorage = new ChangeStorage();
             this.Hide();
-            newProduct.Show();
+            changeStorage.Show();
         }
-        
     }
 }

@@ -1,0 +1,45 @@
+﻿<Window x:Class="Shop.View.StorageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Shop.View"
+        mc:Ignorable="d"
+        Title="Магазин" Height="450" Width="800" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png">
+    <Grid Background="#A6BDD7">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock HorizontalAlignment="Center" Text="Склад" FontSize="18" Height="30" Margin="10" Grid.ColumnSpan="2"></TextBlock>
+        <DataGrid x:Name="Stor" Grid.Row="1"  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код" Binding="{Binding Storage_ID}" Width="40"/>
+                <DataGridTextColumn Header="Код товара" Binding="{Binding Product_ID}" Width="95"/>
+                <DataGridTextColumn Header="Кол-во товаров на складе" Binding="{Binding Quantity_Of_Products}" Width="100"/>
+                <DataGridTextColumn Header="Общая стоимость" Binding="{Binding Total_Cost}" Width="90"/>
+                <DataGridTextColumn Header="Дата поступления" Binding="{Binding Date_Delivery }" Width="105"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Поиск товара" Width="110" Height="30" FontSize="12" HorizontalAlignment="Left" Margin="50,10,0,85" ></TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="10,29,10,63" FontSize="18"/>
+        <Button Grid.Row="1" Grid.Column="1" FontSize="18" Background="#FCDFD1" Content="Поиск" Margin="50,68,50,10"/>
+
+        <StackPanel Grid.Row="2" Height="40" Orientation="Horizontal" Width="200">
+            <Button  HorizontalAlignment="Left" Content="Изменить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="0 0 5 0" Click="click_storage"></Button>
+            <Button  HorizontalAlignment="Right" Content="Удалить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="5 0 0 0"></Button>
+        </StackPanel>
+
+
+        <Button Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Назад" Height="40" Width="75" FontSize="18" Background="#FCDFD1"  Margin="5" Click="back_admin_window"></Button>
+        <Label Grid.Row="3"  Grid.Column="1" Name="LiveTimeLabel"  VerticalAlignment="Bottom" FontSize="18" HorizontalAlignment="Right" Margin="5"/>
+
+    </Grid>
+</Window>

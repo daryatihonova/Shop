@@ -16,11 +16,11 @@ using System.Windows.Threading;
 namespace Shop.View
 {
     /// <summary>
-    /// Логика взаимодействия для ProductWindow.xaml
+    /// Логика взаимодействия для SaleWindow.xaml
     /// </summary>
-    public partial class ProductWindow : Window
+    public partial class SaleWindow : Window
     {
-        public ProductWindow()
+        public SaleWindow()
         {
             InitializeComponent();
             DispatcherTimer LiveTime = new DispatcherTimer();
@@ -38,13 +38,5 @@ namespace Shop.View
             this.Hide();
             mainAdminWindow.Show();
         }
-
-        private void click_new_product(object sender, EventArgs e)
-        {
-            NewProduct newProduct = new NewProduct();
-            this.Hide();
-            newProduct.Show();
-        }
-        
     }
 }

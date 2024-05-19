@@ -10,8 +10,8 @@
         <Menu VerticalAlignment="Top" Height="35" HorizontalAlignment="Stretch">
             <MenuItem Header="Сотрудник" FontSize="18" Margin="10 5" BorderBrush="Black" Click="Seller_Window"></MenuItem>
             <MenuItem Header="Товар" FontSize="18" Margin="10 5" BorderBrush="Black" Click="Product_Window"></MenuItem>
-            <MenuItem Header="Склад" FontSize="18" Margin="10 5" BorderBrush="Black"></MenuItem>
-            <MenuItem Header="Продажа" FontSize="18" Margin="10 5" BorderBrush="Black"></MenuItem>
+            <MenuItem Header="Склад" FontSize="18" Margin="10 5" BorderBrush="Black" Click="Storage_Window"></MenuItem>
+            <MenuItem Header="Продажа" FontSize="18" Margin="10 5" BorderBrush="Black" Click="Sale_Window"></MenuItem>
         </Menu>
         <Label Name="LiveTimeLabel"  VerticalAlignment="Bottom" FontSize="18" HorizontalAlignment="Right" Margin="5"/>
         <Button VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Выход" Height="40" Width="75" FontSize="18" Background="#FCDFD1" Click="Back" Margin="5"></Button>

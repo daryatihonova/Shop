@@ -54,7 +54,22 @@ namespace Shop.View
             productWindow.Show();
         }
 
-        
+        private void Storage_Window(object sender, RoutedEventArgs e)
+        {
+            StorageWindow storageWindow = new StorageWindow();
+            this.Hide();
+            storageWindow.Show();
+        }
+
+        private void Sale_Window(object sender, RoutedEventArgs e)
+        {
+            SaleWindow saleWindow = new SaleWindow();
+            this.Hide();
+            saleWindow.Show();
+        }
+
+
+
 
     }
 }

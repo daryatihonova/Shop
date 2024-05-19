@@ -25,12 +25,24 @@ namespace Shop
         {
             InitializeComponent();
         }
+
         private void Admin_Menu(object sender, EventArgs e)
         {
-            MainAdminWindow mainAdminWindow = new MainAdminWindow();
-            this.Hide();
-            mainAdminWindow.Show();
-        }
+            string Login = Login_TextBox.Text;
+            string Password = Password_TextBox.Text;
 
+            if (Login == "admin" && Password == "admin")
+            {
+                MainAdminWindow mainAdminWindow = new MainAdminWindow();
+                this.Hide();
+                mainAdminWindow.Show();
+            }
+            else
+            {
+                SaleWindowForSeller saleWindowForSeller = new SaleWindowForSeller();
+                this.Hide();
+                saleWindowForSeller.Show();
+            }
+        }
     }
 }
