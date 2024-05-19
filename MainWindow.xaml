@@ -1,0 +1,33 @@
+﻿<Window x:Class="Shop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Shop"
+        mc:Ignorable="d"
+         Title="Магазин" Height="300" Width="500" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png">
+    <Grid Background="#A6BDD7">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="70*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Вход"  HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20" FontSize="20" FontWeight="Bold"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Left" Width="70" Height="30" FontSize="18"  Text="Логин" Margin="40 20"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Width="70" Height="30" FontSize="18"  Text="Пароль" Margin="40 20"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Height="35" Width="300" FontSize="18"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Height="35" Width="300" FontSize="18"/>
+
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Button Content="Вход" Height="40" Width="75" FontSize="18" Background="#FCDFD1" Click="Admin_Menu"></Button>
+        </StackPanel>
+
+
+    </Grid>
+</Window>
