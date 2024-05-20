@@ -1,4 +1,5 @@
-﻿using Shop.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -41,7 +42,7 @@ namespace Shop.View
             {
                 Sellers = new ObservableCollection<Seller>(context.Sellers.ToList());
             }
-
+            
 
         }
         void timer_Tick(object sender, EventArgs e)
@@ -58,9 +59,24 @@ namespace Shop.View
 
         private void click_new_seller(object sender, EventArgs e)
         {
+           
             NewSeller newSeller = new NewSeller();
             this.Hide();
             newSeller.Show();
         }
+
+        public void Sell_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedSeller = (Seller)Sell.SelectedItem;
+            if (selectedSeller != null)
+            {
+                // Здесь можно использовать выбранного сотрудника для нужных действий
+               EditSeller editSeller = new EditSeller(selectedSeller);
+                editSeller.Show();
+            }
+        }
+
+
+
     }
 }

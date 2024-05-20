@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using Microsoft.EntityFrameworkCore;
+using System.Windows.Controls;
 using Shop.Model;
 
 namespace Shop.View
@@ -19,7 +21,7 @@ namespace Shop.View
                 LastName = LastNameTextBox.Text,
                 Patronymic = PatronymicTextBox.Text,
                 Login = LoginTextBox.Text,
-                Password = PasswordTextBox.Text // Оставляем как строку, не требуется преобразование
+                Password = PasswordTextBox.Text 
             };
 
             using (var context = new ShopContext())
@@ -48,8 +50,5 @@ namespace Shop.View
             PasswordTextBox.Text = " ";
         }
 
-
-
-        
     }
 }

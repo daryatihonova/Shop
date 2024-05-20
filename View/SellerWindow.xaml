@@ -14,7 +14,8 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" Text="Сотрудник" FontSize="18" Height="30" Margin="10" ></TextBlock>
-        <DataGrid x:Name="Sell" Grid.Row="1"  AutoGenerateColumns="False" ItemsSource="{Binding Sellers}">
+        <DataGrid x:Name="Sell" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Sellers}"  SelectionChanged="Sell_SelectionChanged" >
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Код" Binding="{Binding SellerId}" Width="40"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="90"/>
@@ -26,7 +27,7 @@
         </DataGrid>
         <StackPanel Grid.Row="2" Height="40" Width="290" Orientation="Horizontal">
             <Button  HorizontalAlignment="Left" Content="Добавить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="0 0 5 0" Click="click_new_seller"></Button>
-            <Button  HorizontalAlignment="Center" Content="Изменить" Height="40" Width="90" FontSize="18" Background="#FCDFD1" Margin="5 0 5 0"/>
+            <Button    x:Name="editSellerButton"  HorizontalAlignment="Center" Content="Изменить" Height="40" Width="90" FontSize="18" Background="#FCDFD1" Margin="5 0 5 0" />
             <Button  HorizontalAlignment="Right" Content="Удалить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="5 0 0 0"></Button>
         </StackPanel>
 
