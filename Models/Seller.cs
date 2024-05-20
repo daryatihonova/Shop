@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Shop.Model;
+namespace Shop.Models;
 
 public partial class Seller
 {
@@ -15,8 +15,7 @@ public partial class Seller
 
     public string Login { get; set; } = null!;
 
-    public string Password { get; set; }
+    public string Password { get; set; } = null!;
 
     public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
 }
-

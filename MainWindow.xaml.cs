@@ -1,4 +1,5 @@
-﻿using Shop.View;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,3 +47,4 @@ namespace Shop
         }
     }
 }
+
