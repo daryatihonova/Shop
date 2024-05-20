@@ -15,23 +15,23 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="0.2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock HorizontalAlignment="Center" Text="Товар" FontSize="18" Height="30" Margin="10" Grid.ColumnSpan="2"></TextBlock>
-        <DataGrid x:Name="Prod" Grid.Row="1"  AutoGenerateColumns="False">
+        <DataGrid x:Name="Prod" Grid.Row="1"  AutoGenerateColumns="False" ItemsSource="{Binding Products}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Код" Binding="{Binding Product_ID}" Width="40"/>
-                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="95"/>
-                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="100"/>
-                <DataGridTextColumn Header="Ед.измерения" Binding="{Binding Unit_Of_Measurement}" Width="90"/>
-                <DataGridTextColumn Header="Цена за единицу" Binding="{Binding Price_Unit}" Width="105"/>
+                <DataGridTextColumn Header="Код" Binding="{Binding ProductId}" Width="40"/>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="120"/>
+                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="120"/>
+                <DataGridTextColumn Header="Ед.измерения" Binding="{Binding UnitOfMeasurement}" Width="90"/>
+                <DataGridTextColumn Header="Цена за единицу" Binding="{Binding PriceUnit}" Width="105"/>
                 <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="50"/>
-                <DataGridTextColumn Header="Дата последнего завоза" Binding="{Binding Date_Of_Last_Delivery}" Width="105"/>
+                <DataGridTextColumn Header="Дата последнего завоза" Binding="{Binding DateOfLastDelivery, StringFormat='dd/MM/yyyy'}" Width="105" />
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="Поиск по названию" Width="110" Height="30" FontSize="12" HorizontalAlignment="Left" Margin="40,10,0,85"></TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="10,29,10,63" FontSize="18"/>
-        <Button Grid.Row="1" Grid.Column="1" FontSize="18" Background="#FCDFD1" Content="Поиск" Margin="50,68,50,10"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Поиск по названию" Width="114" Height="30" FontSize="12" HorizontalAlignment="Center" Margin="0,10,0,85"></TextBlock>
+        <TextBox x:Name="Prod_Search"   Grid.Row="1" Grid.Column="1" Margin="10,29,10,63" FontSize="18"/>
+        <Button Grid.Row="1" Grid.Column="1" FontSize="18" Background="#FCDFD1" Content="Поиск" Margin="18,68,18,10" Click="Click_Prod_Search"/>
 
         <StackPanel Grid.Row="2" Height="40" Width="290" Orientation="Horizontal">
             <Button  HorizontalAlignment="Left" Content="Добавить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="0 0 5 0" Click="click_new_product"></Button>

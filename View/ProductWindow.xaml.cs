@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +23,12 @@ namespace Shop.View
     /// </summary>
     public partial class ProductWindow : Window
     {
+        private ObservableCollection<Product> _products;
+        public ObservableCollection<Product> Products
+        { 
+            get { return _products; }
+            set { _products = value; Prod.ItemsSource = value; }
+        }
         public ProductWindow()
         {
             InitializeComponent();
@@ -27,6 +36,14 @@ namespace Shop.View
             LiveTime.Interval = TimeSpan.FromSeconds(1);
             LiveTime.Tick += timer_Tick;
             LiveTime.Start();
+
+            using (var context = new ShopContext())
+            {
+                Products = new ObservableCollection<Product>(context.Products.ToList());
+            }
+
+            
+
         }
         void timer_Tick(object sender, EventArgs e)
         {
@@ -45,6 +62,31 @@ namespace Shop.View
             this.Hide();
             newProduct.Show();
         }
-        
+
+        private void Click_Prod_Search(object sender, EventArgs e)
+        {
+            string prod_Search = Prod_Search.Text;
+            if (string.IsNullOrEmpty(prod_Search))
+            {
+                Products = new ObservableCollection<Product>(_products);
+            }
+            else
+            {
+                using (var context = new ShopContext())
+                {
+                    var products = context.Products.Where(p => EF.Functions.Like(p.Name, $"%{prod_Search}%")).ToList();
+                    if (products.Count == 0)
+                    {
+                        MessageBox.Show("Такого товара не существует.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        Products = new ObservableCollection<Product> (products);
+                    }
+                }
+            }
+        }
+
+
     }
 }

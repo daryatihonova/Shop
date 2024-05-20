@@ -17,28 +17,28 @@
             <ColumnDefinition Width="0.3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock HorizontalAlignment="Center" Text="Продажа" FontSize="18" Height="30" Margin="10" Grid.ColumnSpan="2"></TextBlock>
-        <DataGrid x:Name="Sal" Grid.Row="1"  AutoGenerateColumns="False">
+        <DataGrid x:Name="Sal" Grid.Row="1"  AutoGenerateColumns="False" ItemsSource="{Binding Sales}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Код" Binding="{Binding Sale_ID}" Width="40"/>
-                <DataGridTextColumn Header="Код товара" Binding="{Binding Product_ID}" Width="95"/>
-                <DataGridTextColumn Header="Кол-во товаров" Binding="{Binding Amount_Of_Products}" Width="100"/>
+                <DataGridTextColumn Header="Код" Binding="{Binding SaleId}" Width="40"/>
+                <DataGridTextColumn Header="Код товара" Binding="{Binding ProductId}" Width="95"/>
+                <DataGridTextColumn Header="Кол-во товаров" Binding="{Binding AmountOfProducts}" Width="100"/>
                 <DataGridTextColumn Header="Стоимость" Binding="{Binding Cost}" Width="90"/>
-                <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="90"/>
-                <DataGridTextColumn Header="Код продавца" Binding="{Binding Seller_ID }" Width="105"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Date, StringFormat='dd/MM/yyy'}" Width="90"/>
+                <DataGridTextColumn Header="Код продавца" Binding="{Binding SellerId }" Width="105"/>
 
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
             <TextBlock  Text="Поиск по дате" Width="110" Height="30" FontSize="12" TextAlignment="Center" />
-            <TextBox  FontSize="18" Margin="10 0 10 0"/>
+            <TextBox x:Name="Date_Search"   FontSize="18" Margin="10 0 10 0"/>
 
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
             <TextBlock  Text="Поиск по продавцу" Width="110" Height="30" FontSize="12" HorizontalAlignment="Center"  TextAlignment="Center"></TextBlock>
-            <TextBox  FontSize="18" Margin="10 0 10 0"/>
+            <TextBox x:Name="Seller_Search"   FontSize="18" Margin="10 0 10 0"/>
         </StackPanel>
 
-        <Button Grid.Row="1" Grid.Column="1" FontSize="18" Background="#FCDFD1" Content="Поиск" Height="40" Width="75" VerticalAlignment="Bottom"/>
+        <Button Grid.Row="1" Grid.Column="1" FontSize="18" Background="#FCDFD1" Content="Поиск" Height="40" Width="75" VerticalAlignment="Bottom" Click="Click_Search"/>
 
 
 

@@ -14,11 +14,11 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" Text="Сотрудник" FontSize="18" Height="30" Margin="10" ></TextBlock>
-        <DataGrid x:Name="Sell" Grid.Row="1"  AutoGenerateColumns="False">
+        <DataGrid x:Name="Sell" Grid.Row="1"  AutoGenerateColumns="False" ItemsSource="{Binding Sellers}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Код" Binding="{Binding Seller_ID}" Width="40"/>
-                <DataGridTextColumn Header="Имя" Binding="{Binding First_Name}" Width="90"/>
-                <DataGridTextColumn Header="Фамилия" Binding="{Binding Last_Name}" Width="90"/>
+                <DataGridTextColumn Header="Код" Binding="{Binding SellerId}" Width="40"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="90"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="90"/>
                 <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="90"/>
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="90"/>
                 <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" Width="90"/>

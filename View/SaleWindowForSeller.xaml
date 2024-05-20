@@ -18,20 +18,20 @@
             <ColumnDefinition Width="0.3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock HorizontalAlignment="Center" Text="Продажа" FontSize="18" Height="30" Margin="10" Grid.ColumnSpan="2"></TextBlock>
-        <DataGrid x:Name="Sal" Grid.Row="1"  AutoGenerateColumns="False">
+        <DataGrid x:Name="Sal" Grid.Row="1"  AutoGenerateColumns="False" ItemsSource="{Binding Sales}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Код" Binding="{Binding Sale_ID}" Width="40"/>
-                <DataGridTextColumn Header="Код товара" Binding="{Binding Product_ID}" Width="95"/>
-                <DataGridTextColumn Header="Кол-во товаров" Binding="{Binding Amount_Of_Products}" Width="100"/>
+                <DataGridTextColumn Header="Код" Binding="{Binding SaleId}" Width="40"/>
+                <DataGridTextColumn Header="Код товара" Binding="{Binding ProductId}" Width="95"/>
+                <DataGridTextColumn Header="Кол-во товаров" Binding="{Binding AmountOfProducts}" Width="100"/>
                 <DataGridTextColumn Header="Стоимость" Binding="{Binding Cost}" Width="90"/>
-                <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="90"/>
-                <DataGridTextColumn Header="Код продавца" Binding="{Binding Seller_ID }" Width="105"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Date, StringFormat='dd/MM/yyy'}" Width="90"/>
+                <DataGridTextColumn Header="Код продавца" Binding="{Binding SellerId }" Width="105"/>
 
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock Grid.Row="1" Grid.Column="1" Text="Поиск товара" Width="110" Height="30" FontSize="12" HorizontalAlignment="Left" Margin="50,10,0,85" ></TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="10,29,10,63" FontSize="18"/>
-        <Button Grid.Row="1" Grid.Column="1" FontSize="18" Background="#FCDFD1" Content="Поиск" Margin="50,68,50,10"/>
+        <TextBox x:Name="Prod_Search"   Grid.Row="1" Grid.Column="1" Margin="10,29,10,63" FontSize="18"/>
+        <Button Grid.Row="1" Grid.Column="1" FontSize="18" Background="#FCDFD1" Content="Поиск" Margin="50,68,50,10" Click="Click_Prod_Search"/>
 
         <StackPanel Grid.Row="2" Height="40" Width="290" Orientation="Horizontal">
             <Button  HorizontalAlignment="Left" Content="Добавить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="0 0 5 0" Click="click_new_sale"></Button>
