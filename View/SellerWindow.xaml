@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop.View"
         mc:Ignorable="d"
-       Title="Магазин" Height="450" Width="800" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png">
+       Title="Магазин" IsVisibleChanged="Page_IsVisibleChanged" Height="600" Width="800" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png" ResizeMode="NoResize">
     <Grid Background="#A6BDD7">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" Text="Сотрудник" FontSize="18" Height="30" Margin="10" ></TextBlock>
-        <DataGrid x:Name="Sell" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Sellers}"  SelectionChanged="Sell_SelectionChanged" >
-
+        <DataGrid x:Name="Sell" Grid.Row="1" Grid.RowSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Sellers}"   >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Код" Binding="{Binding SellerId}" Width="40"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="90"/>
@@ -23,17 +23,20 @@
                 <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="90"/>
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="90"/>
                 <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" Width="90"/>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button HorizontalAlignment="Center" Content="Изменить"  Height="30" FontSize="18" Background="#FCDFD1"  Click="EditButton_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="2" Height="40" Width="290" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Height="40" Width="200" Orientation="Horizontal">
             <Button  HorizontalAlignment="Left" Content="Добавить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="0 0 5 0" Click="click_new_seller"></Button>
-            <Button    x:Name="editSellerButton"  HorizontalAlignment="Center" Content="Изменить" Height="40" Width="90" FontSize="18" Background="#FCDFD1" Margin="5 0 5 0" />
-            <Button  HorizontalAlignment="Right" Content="Удалить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="5 0 0 0"></Button>
+            <Button  HorizontalAlignment="Right" Content="Удалить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="5 0 0 0" Click="click_delete_seller"></Button>
         </StackPanel>
-
-
-        <Button Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Назад" Height="40" Width="75" FontSize="18" Background="#FCDFD1"  Margin="5" Click="back_admin_window"></Button>
-        <Label Grid.Row="3" Name="LiveTimeLabel"  VerticalAlignment="Bottom" FontSize="18" HorizontalAlignment="Right" Margin="5"/>
-
+        <Button Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Назад" Height="40" Width="75" FontSize="18" Background="#FCDFD1"  Margin="5" Click="back_admin_window"></Button>
+        <Label Grid.Row="4" Name="LiveTimeLabel"  VerticalAlignment="Bottom" FontSize="18" HorizontalAlignment="Right" Margin="5"/>
     </Grid>
 </Window>

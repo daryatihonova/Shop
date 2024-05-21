@@ -1,54 +1,66 @@
 ﻿using System;
 using System.Windows;
-using Microsoft.EntityFrameworkCore;
-using System.Windows.Controls;
 using Shop.Model;
 
 namespace Shop.View
 {
     public partial class NewSeller : Window
     {
-        public NewSeller()
+        private Seller _currentSeller = new Seller();
+       
+
+        public NewSeller(Seller selectedSeller)
         {
             InitializeComponent();
+
+            if (selectedSeller != null)
+                _currentSeller = selectedSeller;
+
+            DataContext = _currentSeller;
+            
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Seller newSeller = new Seller
-            {
-                FirstName = FirstNameTextBox.Text,
-                LastName = LastNameTextBox.Text,
-                Patronymic = PatronymicTextBox.Text,
-                Login = LoginTextBox.Text,
-                Password = PasswordTextBox.Text 
-            };
-
             using (var context = new ShopContext())
             {
-                context.Sellers.Add(newSeller);
+                if (_currentSeller.SellerId == 0) // Новый продавец
+                {
+                    Seller newSeller = new Seller
+                    {
+                        FirstName = FirstNameTextBox.Text,
+                        LastName = LastNameTextBox.Text,
+                        Patronymic = PatronymicTextBox.Text,
+                        Login = LoginTextBox.Text,
+                        Password = PasswordTextBox.Text
+                    };
+
+                    context.Sellers.Add(newSeller);
+                }
+                else // Существующий продавец
+                {
+                    var existingSeller = context.Sellers.Find(_currentSeller.SellerId);
+                    if (existingSeller != null)
+                    {
+                        existingSeller.FirstName = FirstNameTextBox.Text;
+                        existingSeller.LastName = LastNameTextBox.Text;
+                        existingSeller.Patronymic = PatronymicTextBox.Text;
+                        existingSeller.Login = LoginTextBox.Text;
+                        existingSeller.Password = PasswordTextBox.Text;
+                    }
+                }
+
                 context.SaveChanges();
             }
 
-            MessageBox.Show("Продавец успешно добавлен в базу данных!", "Успешно");
+            MessageBox.Show("Информация сохранена!", "Успешно");
         }
 
 
-        private void CancelButton_Click(Object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            ClearTextBox();
-            SellerWindow sellerWindow = new SellerWindow();
-            this.Hide();
-            sellerWindow.Show();
+           
+            this.Close();
         }
-        private void ClearTextBox()
-        {
-            FirstNameTextBox.Text = " ";
-            LastNameTextBox.Text = " ";
-            PatronymicTextBox.Text = " ";
-            LoginTextBox.Text = " ";
-            PasswordTextBox.Text = " ";
-        }
-
     }
 }

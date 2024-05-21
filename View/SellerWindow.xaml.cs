@@ -28,11 +28,13 @@ namespace Shop.View
         public ObservableCollection<Seller> Sellers
         {
             get { return _sellers; }
-            set { _sellers = value; Sell.ItemsSource = value; } 
+            set { _sellers = value; Sell.ItemsSource = value; }
         }
+
         public SellerWindow()
         {
             InitializeComponent();
+
             DispatcherTimer LiveTime = new DispatcherTimer();
             LiveTime.Interval = TimeSpan.FromSeconds(1);
             LiveTime.Tick += timer_Tick;
@@ -42,37 +44,64 @@ namespace Shop.View
             {
                 Sellers = new ObservableCollection<Seller>(context.Sellers.ToList());
             }
-            
-
         }
+
         void timer_Tick(object sender, EventArgs e)
         {
             LiveTimeLabel.Content = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
         }
 
-        private void back_admin_window(object sender, EventArgs e)
+        private void back_admin_window(object sender, RoutedEventArgs e)
         {
             MainAdminWindow mainAdminWindow = new MainAdminWindow();
             this.Hide();
             mainAdminWindow.Show();
         }
 
-        private void click_new_seller(object sender, EventArgs e)
+        private void click_new_seller(object sender, RoutedEventArgs e)
         {
-           
-            NewSeller newSeller = new NewSeller();
-            this.Hide();
+            NewSeller newSeller = new NewSeller(null);
             newSeller.Show();
         }
 
-        public void Sell_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            var selectedSeller = (Seller)Sell.SelectedItem;
-            if (selectedSeller != null)
+            NewSeller editWindow = new NewSeller((sender as Button).DataContext as Seller);
+            editWindow.ShowDialog();
+        }
+
+        private void click_delete_seller(Object sender, RoutedEventArgs e)
+        {
+            var sellersForRemoving = Sell.SelectedItems.Cast<Seller>().ToList();
+            if (MessageBox.Show($"Вы точно хотите удалить следующие {sellersForRemoving.Count()} элементов?", "Внимание",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                // Здесь можно использовать выбранного сотрудника для нужных действий
-               EditSeller editSeller = new EditSeller(selectedSeller);
-                editSeller.Show();
+                try
+                {
+                    using (var context = new ShopContext())
+                    {
+                        context.Sellers.RemoveRange(sellersForRemoving);
+                        context.SaveChanges();
+                        MessageBox.Show("Данные удалены");
+                        Sellers = new ObservableCollection<Seller>(context.Sellers.ToList());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+        }
+
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                using (var context = new ShopContext())
+                {
+                    context.ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                    Sell.ItemsSource = context.Sellers.ToList();
+                }
             }
         }
 

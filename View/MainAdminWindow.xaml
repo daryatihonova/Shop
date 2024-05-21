@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop.View"
         mc:Ignorable="d"
-        Title="Магазин" Height="400" Width="600" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png">
+        Title="Магазин" Height="400" Width="600" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png" ResizeMode="NoResize">
     <Grid Background="#A6BDD7">
         <Menu VerticalAlignment="Top" Height="35" HorizontalAlignment="Stretch">
             <MenuItem Header="Сотрудник" FontSize="18" Margin="10 5" BorderBrush="Black" Click="Seller_Window"></MenuItem>

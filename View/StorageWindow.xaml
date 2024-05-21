@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop.View"
         mc:Ignorable="d"
-        Title="Магазин" Height="450" Width="800" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png">
+        Title="Магазин" Height="450" Width="800" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png" ResizeMode="NoResize">
     <Grid Background="#A6BDD7">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
