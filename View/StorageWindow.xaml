@@ -25,6 +25,13 @@
                 <DataGridTextColumn Header="Кол-во товаров на складе" Binding="{Binding QuantityOfProducts}" Width="100"/>
                 <DataGridTextColumn Header="Общая стоимость" Binding="{Binding TotalCost}" Width="90"/>
                 <DataGridTextColumn Header="Дата поступления" Binding="{Binding DateDelivery, StringFormat='dd/MM/yyy' }" Width="105"/>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button HorizontalAlignment="Center" Content="Изменить"  Height="30" FontSize="18" Background="#FCDFD1"  Click="EditButton_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>
@@ -32,9 +39,8 @@
         <TextBox x:Name="Stor_Search"   Grid.Row="1" Grid.Column="1" Margin="10,29,10,63" FontSize="18"/>
         <Button Grid.Row="1" Grid.Column="1" FontSize="18" Background="#FCDFD1" Content="Поиск" Margin="50,68,50,10" Click="Click_Stor_Search"/>
 
-        <StackPanel Grid.Row="2" Height="40" Orientation="Horizontal" Width="200">
-            <Button  HorizontalAlignment="Left" Content="Изменить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="0 0 5 0" Click="click_storage"></Button>
-            <Button  HorizontalAlignment="Right" Content="Удалить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="5 0 0 0"></Button>
+        <StackPanel Grid.Row="2" Height="40" Orientation="Horizontal" Width="100">
+           <Button  HorizontalAlignment="Right" Content="Удалить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="5 0 0 0"></Button>
         </StackPanel>
 
 

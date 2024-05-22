@@ -1,40 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shop.Model;
+﻿using Shop.Model;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Shop.View
 {
-    /// <summary>
-    /// Логика взаимодействия для NewProduct.xaml
-    /// </summary>
     public partial class NewProduct : Window
     {
         private Model.Product _currentProduct = new Product();
-
         public delegate void DataChangedEventHandler(object sender, EventArgs e);
         public event DataChangedEventHandler DataChanged;
 
         public NewProduct(Product selectedProduct)
         {
             InitializeComponent();
-
             if (selectedProduct != null)
                 _currentProduct = selectedProduct;
-
-
+            _currentProduct.DateOfLastDelivery = DateTime.Today; // Устанавливаем сегодняшнюю дату
             DataContext = _currentProduct;
         }
 
@@ -42,70 +27,64 @@ namespace Shop.View
         {
             using (var context = new Model.ShopContext())
             {
-                if (_currentProduct.ProductId == 0) // Добавление нового товара
+                decimal priceUnit;
+                if (decimal.TryParse(PriceUnitTextBox.Text, out priceUnit))
                 {
-                    Model.Product newProduct = new Model.Product
+                    _currentProduct.Name = NameTextBox.Text;
+                    _currentProduct.Description = DescriptionTextBox.Text;
+                    _currentProduct.UnitOfMeasurement = UnitOfMeasurementTextBox.Text;
+                    _currentProduct.PriceUnit = priceUnit;
+                    _currentProduct.Quantity = int.Parse(QuantityTextBox.Text);
+                    _currentProduct.DateOfLastDelivery = DateTime.Today.Date;
+
+                    if (_currentProduct.ProductId == 0)
                     {
-                        Name = NameTextBox.Text,
-                        Description = DescriptionTextBox.Text,
-                        UnitOfMeasurement = UnitOfMeasurementTextBox.Text,
-                        PriceUnit = decimal.Parse(PriceUnitTextBox.Text),
-                        Quantity = int.Parse(QuantityTextBox.Text),
-                        DateOfLastDelivery = DateTime.Parse(DateOfLastDeliveryTextBox.Text),
-                    };
-
-                    // Вычисление TotalCost для нового товара
-                    decimal totalCost = newProduct.PriceUnit * newProduct.Quantity;
-
-                    context.Products.Add(newProduct);
-
-                    // Добавление записи на склад
-                    Model.Storage newStorageEntry = new Model.Storage
-                    {
-                        QuantityOfProducts = newProduct.Quantity,
-                        TotalCost = totalCost,
-                        DateDelivery = DateTime.Now, // Дата совершения добавления
-                        ProductId = newProduct.ProductId
-                    };
-                    context.Storages.Add(newStorageEntry);
-                }
-                else // Редактирование существующего товара
-                {
-                    var existingProduct = context.Products.Find(_currentProduct.ProductId);
-                    if (existingProduct != null)
-                    {
-                        existingProduct.Name = NameTextBox.Text;
-                        existingProduct.Description = DescriptionTextBox.Text;
-                        existingProduct.UnitOfMeasurement = UnitOfMeasurementTextBox.Text;
-                        existingProduct.PriceUnit = decimal.Parse(PriceUnitTextBox.Text);
-                        existingProduct.Quantity = int.Parse(QuantityTextBox.Text);
-                        existingProduct.DateOfLastDelivery = DateTime.Parse(DateOfLastDeliveryTextBox.Text);
-
-                        // Вычисление TotalCost для существующего товара
-                        decimal totalCost = existingProduct.PriceUnit * existingProduct.Quantity;
-
-                        // Обновление записи на складе
-                        var storageEntry = context.Storages.FirstOrDefault(s => s.ProductId == existingProduct.ProductId);
-                        if (storageEntry != null)
+                        decimal totalCost = _currentProduct.PriceUnit * _currentProduct.Quantity;
+                        context.Products.Add(_currentProduct);
+                        context.SaveChanges(); // Сохраняем изменения, чтобы получить ProductId
+                        Model.Storage newStorageEntry = new Model.Storage
                         {
-                            storageEntry.QuantityOfProducts = existingProduct.Quantity;
-                            storageEntry.TotalCost = totalCost;
-                            storageEntry.DateDelivery = DateTime.Now; // Дата совершения изменения
+                            QuantityOfProducts = _currentProduct.Quantity,
+                            TotalCost = totalCost,
+                            DateDelivery = DateTime.Now,
+                            ProductId = _currentProduct.ProductId
+                        };
+                        context.Storages.Add(newStorageEntry);
+                    }
+                    else
+                    {
+                        var existingProduct = context.Products.Find(_currentProduct.ProductId);
+                        if (existingProduct != null)
+                        {
+                            existingProduct.Name = _currentProduct.Name;
+                            existingProduct.Description = _currentProduct.Description;
+                            existingProduct.UnitOfMeasurement = _currentProduct.UnitOfMeasurement;
+                            existingProduct.PriceUnit = _currentProduct.PriceUnit;
+                            existingProduct.Quantity = _currentProduct.Quantity;
+                            existingProduct.DateOfLastDelivery = _currentProduct.DateOfLastDelivery;
+                            decimal totalCost = existingProduct.PriceUnit * existingProduct.Quantity;
+                            var storageEntry = context.Storages.FirstOrDefault(s => s.ProductId == existingProduct.ProductId);
+                            if (storageEntry != null)
+                            {
+                                storageEntry.QuantityOfProducts = existingProduct.Quantity;
+                                storageEntry.TotalCost = totalCost;
+                                storageEntry.DateDelivery = DateTime.Now;
+                            }
                         }
                     }
+                    context.SaveChanges();
+                    DataContext = _currentProduct;
+                    DataChanged?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show("Информация сохранена!", "Успешно");
                 }
-
-                context.SaveChanges();
-                DataContext = _currentProduct;
-                DataChanged?.Invoke(this, EventArgs.Empty);
+                else
+                {
+                    MessageBox.Show("Неверный формат цены за единицу товара. Пожалуйста, введите корректное значение.", "Ошибка");
+                }
             }
-
-            MessageBox.Show("Информация сохранена!", "Успешно");
         }
 
-
-
-        private void CancelButton_Click(object sender, EventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -133,6 +112,6 @@ namespace Shop.View
                 }
             }
         }
-
     }
 }
+   
