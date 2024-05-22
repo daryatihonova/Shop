@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using Shop.Model;
 
@@ -7,7 +8,10 @@ namespace Shop.View
     public partial class NewSeller : Window
     {
         private Seller _currentSeller = new Seller();
-       
+        
+        public delegate void DataChangedEventHandler(object sender, EventArgs e);
+        public event DataChangedEventHandler DataChanged;
+
 
         public NewSeller(Seller selectedSeller)
         {
@@ -17,7 +21,8 @@ namespace Shop.View
                 _currentSeller = selectedSeller;
 
             DataContext = _currentSeller;
-            
+            PasswordTextBox.LostFocus += PasswordTextBox_LostFocus; // Добавляем обработчик события LostFocus для поля пароля 
+
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -51,6 +56,11 @@ namespace Shop.View
                 }
 
                 context.SaveChanges();
+                DataContext = _currentSeller;
+                // Оповещаем SellerWindow о том, что данные были изменены
+                DataChanged?.Invoke(this, EventArgs.Empty);
+
+
             }
 
             MessageBox.Show("Информация сохранена!", "Успешно");
@@ -62,5 +72,28 @@ namespace Shop.View
            
             this.Close();
         }
+
+        private void PasswordTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string password = PasswordTextBox.Text;
+
+            if (password.Length < 6)
+            {
+                MessageBox.Show("Пароль должен содержать минимум 6 символов.");
+            }
+            else if (!password.Any(char.IsUpper))
+            {
+                MessageBox.Show("Пароль должен содержать минимум 1 прописную букву.");
+            }
+            else if (!password.Any(char.IsDigit))
+            {
+                MessageBox.Show("Пароль должен содержать минимум 1 цифру.");
+            }
+            else if (!password.Any(c => "!@#$%^".Contains(c)))
+            {
+                MessageBox.Show("Пароль должен содержать минимум один из следующих символов: ! @ # $ % ^.");
+            }
+        }
+
     }
 }

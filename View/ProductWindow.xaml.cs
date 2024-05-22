@@ -58,8 +58,8 @@ namespace Shop.View
 
         private void click_new_product(object sender, EventArgs e)
         {
-            NewProduct newProduct = new NewProduct();
-            this.Hide();
+            NewProduct newProduct = new NewProduct(null);
+            newProduct.DataChanged += UpdateDataGrid;
             newProduct.Show();
         }
 
@@ -84,6 +84,49 @@ namespace Shop.View
                         Products = new ObservableCollection<Product> (products);
                     }
                 }
+            }
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            NewProduct editProduct = new NewProduct((sender as Button).DataContext as Product);
+            editProduct.DataChanged += UpdateDataGrid;
+            editProduct.ShowDialog();
+        }
+
+        private void click_delete_product(object sender, EventArgs e)
+        {
+            var productsForRemoving = Prod.SelectedItems.Cast<Product>().ToList();
+            if (MessageBox.Show($"Вы точно хотите удалить следующие {productsForRemoving.Count()} элементов?", "Внимание",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    using (var context = new ShopContext())
+                    {
+                        context.Products.RemoveRange(productsForRemoving);
+                        context.SaveChanges();
+                        MessageBox.Show("Данные удалены");
+                        Products = new ObservableCollection<Product>(context.Products.ToList());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+                
+                
+                
+        }
+
+
+
+        private void UpdateDataGrid(object sender, EventArgs e)
+        {
+            using (var context = new ShopContext())
+            {
+                Products = new ObservableCollection<Product>(context.Products.ToList());
             }
         }
 

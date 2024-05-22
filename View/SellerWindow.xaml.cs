@@ -61,12 +61,16 @@ namespace Shop.View
         private void click_new_seller(object sender, RoutedEventArgs e)
         {
             NewSeller newSeller = new NewSeller(null);
+            newSeller.DataChanged += UpdateDataGrid;
+
             newSeller.Show();
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             NewSeller editWindow = new NewSeller((sender as Button).DataContext as Seller);
+            editWindow.DataChanged += UpdateDataGrid;
+
             editWindow.ShowDialog();
         }
 
@@ -93,19 +97,13 @@ namespace Shop.View
             }
         }
 
-        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void UpdateDataGrid(object sender, EventArgs e)
         {
-            if (Visibility == Visibility.Visible)
+            // Обновление данных в таблице
+            using (var context = new ShopContext())
             {
-                using (var context = new ShopContext())
-                {
-                    context.ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
-                    Sell.ItemsSource = context.Sellers.ToList();
-                }
+                Sellers = new ObservableCollection<Seller>(context.Sellers.ToList());
             }
         }
-
-
-
     }
 }

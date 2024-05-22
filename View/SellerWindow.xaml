@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop.View"
         mc:Ignorable="d"
-       Title="Магазин" IsVisibleChanged="Page_IsVisibleChanged" Height="600" Width="800" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png" ResizeMode="NoResize">
+       Title="Магазин"  Height="600" Width="800" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png" ResizeMode="NoResize">
     <Grid Background="#A6BDD7">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
@@ -15,7 +15,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" Text="Сотрудник" FontSize="18" Height="30" Margin="10" ></TextBlock>
-        <DataGrid x:Name="Sell" Grid.Row="1" Grid.RowSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Sellers}"   >
+        <DataGrid x:Name="Sell" Grid.Row="1" Grid.RowSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Sellers}" CanUserAddRows="False"  >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Код" Binding="{Binding SellerId}" Width="40"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="90"/>

@@ -30,18 +30,18 @@
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Кол-во:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="18" />
         <TextBlock Grid.Row="6" Grid.Column="0" Text="Дата последнего завоза:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="18" />
 
-        <TextBox Grid.Row="0" Grid.Column="1" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" Text="{Binding Product_ID}" IsEnabled="False" FontSize="18"/>
-        <TextBox  Grid.Row="1" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Name}" FontSize="18"/>
-        <TextBox  Grid.Row="2" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Description}" FontSize="18"/>
-        <TextBox  Grid.Row="3" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Unit_Of_Measurement}" FontSize="18"/>
-        <TextBox  Grid.Row="4" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Price_Unit}" FontSize="18" />
-        <TextBox  Grid.Row="5" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Quantity}" FontSize="18"/>
-        <TextBox  Grid.Row="6" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Date_Of_Last_Delivery}" FontSize="18"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" Text="{Binding ProductId}" IsEnabled="False" FontSize="18"/>
+        <TextBox x:Name="NameTextBox"  TextChanged="NameTextBox_TextChanged"  Grid.Row="1" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Name}" FontSize="18" MaxLength="50"/>
+        <TextBox x:Name="DescriptionTextBox" Grid.Row="2" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Description}" FontSize="18"/>
+        <TextBox x:Name="UnitOfMeasurementTextBox" Grid.Row="3" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding UnitOfMeasurement}" FontSize="18"/>
+        <TextBox  x:Name="PriceUnitTextBox" Grid.Row="4" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding PriceUnit}" FontSize="18" />
+        <TextBox x:Name="QuantityTextBox" Grid.Row="5" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Quantity}" FontSize="18" />
+        <TextBox x:Name="DateOfLastDeliveryTextBox" Grid.Row="6" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding DateOfLastDelivery}" FontSize="18"/>
 
-        <TextBlock Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Height="40" Width="90" Margin="21,7,0,7"/>
+        <TextBlock x:Name="Prod_Count" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" Height="40"  FontSize="18" FontWeight="Heavy"/>
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Сохранить" Height="40" Width="90" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsDefault="True" Background="#FCDFD1" />
-            <Button  Content="Отменить" Height="40" Width="90" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsCancel="True" Background="#FCDFD1"/>
+            <Button Content="Сохранить" Height="40" Width="90" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsDefault="True" Background="#FCDFD1" Click="SaveButton_Click"/>
+            <Button  Content="Отменить" Height="40" Width="90" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsCancel="True" Background="#FCDFD1" Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
