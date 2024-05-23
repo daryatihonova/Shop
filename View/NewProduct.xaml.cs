@@ -27,13 +27,11 @@ namespace Shop.View
         {
             using (var context = new Model.ShopContext())
             {
-                decimal priceUnit;
-                if (decimal.TryParse(PriceUnitTextBox.Text, out priceUnit))
-                {
+                
                     _currentProduct.Name = NameTextBox.Text;
                     _currentProduct.Description = DescriptionTextBox.Text;
                     _currentProduct.UnitOfMeasurement = UnitOfMeasurementTextBox.Text;
-                    _currentProduct.PriceUnit = priceUnit;
+                    _currentProduct.PriceUnit = decimal.Parse(PriceUnitTextBox.Text.Trim(), CultureInfo.InvariantCulture);
                     _currentProduct.Quantity = int.Parse(QuantityTextBox.Text);
                     _currentProduct.DateOfLastDelivery = DateTime.Today.Date;
 
@@ -47,7 +45,9 @@ namespace Shop.View
                             QuantityOfProducts = _currentProduct.Quantity,
                             TotalCost = totalCost,
                             DateDelivery = DateTime.Now,
-                            ProductId = _currentProduct.ProductId
+                            ProductId = _currentProduct.ProductId,
+                            Product = _currentProduct // Устанавливаем Product для Storage
+
                         };
                         context.Storages.Add(newStorageEntry);
                     }
@@ -76,11 +76,8 @@ namespace Shop.View
                     DataContext = _currentProduct;
                     DataChanged?.Invoke(this, EventArgs.Empty);
                     MessageBox.Show("Информация сохранена!", "Успешно");
-                }
-                else
-                {
-                    MessageBox.Show("Неверный формат цены за единицу товара. Пожалуйста, введите корректное значение.", "Ошибка");
-                }
+                
+               
             }
         }
 

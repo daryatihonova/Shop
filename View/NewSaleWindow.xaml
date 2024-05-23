@@ -39,8 +39,8 @@
 
         <TextBlock Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Height="40" Width="90" Margin="21,7,0,7"/>
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Сохранить" Height="40" Width="90" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsDefault="True" Background="#FCDFD1" />
-            <Button  Content="Отменить" Height="40" Width="90" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsCancel="True" Background="#FCDFD1"/>
+            <Button x:Name="SaveButton" Content="Сохранить" Height="40" Width="90" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsDefault="True" Background="#FCDFD1" Click="SaveButton_Click"/>
+            <Button  Content="Отменить" Height="40" Width="90" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsCancel="True" Background="#FCDFD1" Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

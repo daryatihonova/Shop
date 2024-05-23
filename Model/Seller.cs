@@ -18,5 +18,7 @@ public partial class Seller
     public string Password { get; set; }
 
     public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
+
+    public string FullName => $"{FirstName} {LastName} {Patronymic}";
 }
 

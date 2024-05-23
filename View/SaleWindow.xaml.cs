@@ -37,9 +37,12 @@ namespace Shop.View
             LiveTime.Tick += timer_Tick;
             LiveTime.Start();
 
-            using(var context = new ShopContext())
+            using (var context = new ShopContext())
             {
-                Sales = new ObservableCollection<Sale>(context.Sales.ToList());
+                Sales = new ObservableCollection<Sale>(context.Sales
+                    .Include(s => s.Product)
+                    .Include(s => s.Seller)
+                    .ToList());
             }
         }
         void timer_Tick(object sender, EventArgs e)
@@ -62,40 +65,39 @@ namespace Shop.View
 
             if (isDateSearchEmpty && isSellerSearchEmpty)
             {
-                // Оба поля поиска пусты, отобразить все продажи
                 Sales = new ObservableCollection<Sale>(_sales);
             }
             else
             {
                 using (var context = new ShopContext())
                 {
-                    var sales = context.Sales.AsQueryable(); // Создаем запрос
+                    var sales = context.Sales.AsQueryable();
 
-                    // Добавляем условия поиска в зависимости от заполненных полей
                     if (!isDateSearchEmpty)
                     {
                         sales = sales.Where(sa => EF.Functions.Like(sa.Date.ToString(), $"%{date_Search}%"));
                     }
+
                     if (!isSellerSearchEmpty)
                     {
-                        sales = sales.Where(sa => EF.Functions.Like(sa.SellerId.ToString(), $"%{seller_Search}%"));
+                        // Search by seller's full name
+                        sales = sales.Where(sa => EF.Functions.Like(sa.Seller.FullName, $"%{seller_Search}%"));
                     }
 
-                    var results = sales.ToList(); // Выполняем запрос и получаем результаты
+                    var results = sales.ToList();
 
                     if (results.Count == 0)
                     {
-                        // Ничего не найдено, отобразить сообщение об ошибке
                         MessageBox.Show("Продажи по указанным критериям не найдены.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {
-                        // Найдены продажи, обновить список
                         Sales = new ObservableCollection<Sale>(results);
                     }
                 }
             }
         }
+
 
     }
 }

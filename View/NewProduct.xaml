@@ -34,7 +34,7 @@
         <TextBox x:Name="NameTextBox"  TextChanged="NameTextBox_TextChanged"  Grid.Row="0" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Name}" FontSize="18" MaxLength="50"/>
         <TextBox x:Name="DescriptionTextBox" Grid.Row="1" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Description}" FontSize="18"/>
         <TextBox x:Name="UnitOfMeasurementTextBox" Grid.Row="2" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding UnitOfMeasurement}" FontSize="18"/>
-        <TextBox  x:Name="PriceUnitTextBox" Grid.Row="3" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding PriceUnit}" FontSize="18" />
+        <TextBox  x:Name="PriceUnitTextBox" Grid.Row="3" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding PriceUnit, StringFormat={}{0:F2}}" FontSize="18" />
         <TextBox x:Name="QuantityTextBox" Grid.Row="4" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Quantity}" FontSize="18" />
         
         <TextBlock x:Name="Prod_Count" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" Height="40"  FontSize="18" FontWeight="Heavy"/>

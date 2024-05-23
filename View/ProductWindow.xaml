@@ -25,7 +25,7 @@
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="120"/>
                 <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="120"/>
                 <DataGridTextColumn Header="Ед.измерения" Binding="{Binding UnitOfMeasurement}" Width="90"/>
-                <DataGridTextColumn Header="Цена за единицу" Binding="{Binding PriceUnit}" Width="105"/>
+                <DataGridTextColumn Header="Цена за единицу" Binding="{Binding PriceUnit, StringFormat={}{0:F2}}" Width="105" />
                 <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="50"/>
                 <DataGridTextColumn Header="Дата последнего завоза" Binding="{Binding DateOfLastDelivery, StringFormat='dd/MM/yyyy'}" Width="105" />
                 <DataGridTemplateColumn Width="auto">
