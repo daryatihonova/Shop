@@ -59,11 +59,9 @@ namespace Shop.View
         private void Click_Search(object sender, RoutedEventArgs e)
         {
             string date_Search = Date_Search.Text;
-            string seller_Search = Seller_Search.Text;
             bool isDateSearchEmpty = string.IsNullOrEmpty(date_Search);
-            bool isSellerSearchEmpty = string.IsNullOrEmpty(seller_Search);
 
-            if (isDateSearchEmpty && isSellerSearchEmpty)
+            if (isDateSearchEmpty)
             {
                 Sales = new ObservableCollection<Sale>(_sales);
             }
@@ -71,17 +69,23 @@ namespace Shop.View
             {
                 using (var context = new ShopContext())
                 {
-                    var sales = context.Sales.AsQueryable();
+                    var sales = context.Sales
+                        .Include(s => s.Product)
+                        .Include(s => s.Seller)
+                        .AsQueryable();
 
                     if (!isDateSearchEmpty)
                     {
-                        sales = sales.Where(sa => EF.Functions.Like(sa.Date.ToString(), $"%{date_Search}%"));
-                    }
-
-                    if (!isSellerSearchEmpty)
-                    {
-                        // Search by seller's full name
-                        sales = sales.Where(sa => EF.Functions.Like(sa.Seller.FullName, $"%{seller_Search}%"));
+                        DateTime searchDate;
+                        if (DateTime.TryParse(date_Search, out searchDate))
+                        {
+                            sales = sales.Where(sa => sa.Date.Date == searchDate.Date);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Неверный формат даты. Введите дату в формате дд.ММ.гггг", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
                     }
 
                     var results = sales.ToList();
@@ -97,6 +101,8 @@ namespace Shop.View
                 }
             }
         }
+
+
 
 
     }

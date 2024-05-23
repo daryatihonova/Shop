@@ -1,4 +1,5 @@
-﻿using Shop.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Model;
 using System;
 using System.Linq;
 using System.Windows;
@@ -9,7 +10,6 @@ namespace Shop.View
     public partial class ChangeStorage : Window
     {
         private StorageWindow _storageWindow;
-
         private Storage _currentStorage = new Storage();
 
         public delegate void DataChangedEventHandler(object sender, RoutedEventArgs e);
@@ -25,14 +25,23 @@ namespace Shop.View
             _currentStorage.DateDelivery = DateTime.Today;
             DateDeliveryTextBox.IsReadOnly = true;
             DataContext = _currentStorage;
+
+            Closed += ChangeStorage_Closed; // Привязка к обработчику события Closed
         }
+
+        private void ChangeStorage_Closed(object sender, EventArgs e)
+        {
+            _storageWindow.DataContext = _storageWindow.Storages;
+        }
+
+
+
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             using (var context = new ShopContext())
             {
                 var existingStorage = context.Storages.Find(_currentStorage.StorageId);
-
                 if (existingStorage != null)
                 {
                     var product = context.Products.FirstOrDefault(p => p.ProductId == int.Parse(ProductIdTextBox.Text));
@@ -44,11 +53,13 @@ namespace Shop.View
                         existingStorage.DateDelivery = DateTime.Today;
                         existingStorage.Product = product;
                     }
+
                     DataContext = _currentStorage;
 
                     try
                     {
                         context.SaveChanges();
+                        _storageWindow.Stor.ItemsSource = context.Storages.Include("Product").ToList(); // Установить источник данных таблицы
                     }
                     catch (Exception ex)
                     {
@@ -56,14 +67,12 @@ namespace Shop.View
                     }
                 }
 
-                // Update the DataContext of the StorageWindow.
-                _storageWindow.DataContext = _storageWindow.Storages;
+                DataChanged?.Invoke(this, e);
+                MessageBox.Show("Информация сохранена!", "Успешно");
+
+                Close(); // Закрыть окно ChangeStorage
             }
-
-            DataChanged?.Invoke(this, e);
-            MessageBox.Show("Информация сохранена!", "Успешно");
         }
-
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {

@@ -36,7 +36,7 @@
             <Button  HorizontalAlignment="Left" Content="Добавить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="0 0 5 0" Click="click_new_sale"></Button>
             
         </StackPanel>
-        <Button Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Content="Отчёт за день" Height="40" FontSize="18" Background="#FCDFD1"  Margin="27,0,26,0" />
+        <Button Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Content="Отчёт за день" Height="40" FontSize="18" Background="#FCDFD1"  Margin="27,0,26,0" Click="ExportToExcel_Click"/>
  <Button Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Выход" Height="40" Width="75" FontSize="18" Background="#FCDFD1"  Margin="5" Click="back"></Button>
         <Label Grid.Row="4"  Grid.Column="1" Name="LiveTimeLabel"  VerticalAlignment="Bottom" FontSize="18" HorizontalAlignment="Right" Margin="5"/>
     </Grid>

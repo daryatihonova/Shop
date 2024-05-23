@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shop.Model;
 using Shop.View;
 using System;
 using System.Collections.Generic;
@@ -29,20 +30,32 @@ namespace Shop
 
         private void Admin_Menu(object sender, EventArgs e)
         {
-            string Login = Login_TextBox.Text;
-            string Password = Password_TextBox.Text;
+            using (var context = new ShopContext())
+            {
+                string login = Login_TextBox.Text;
+                string password = Password_TextBox.Text;
 
-            if (Login == "admin" && Password == "admin")
-            {
-                MainAdminWindow mainAdminWindow = new MainAdminWindow();
-                this.Hide();
-                mainAdminWindow.Show();
-            }
-            else
-            {
-                SaleWindowForSeller saleWindowForSeller = new SaleWindowForSeller();
-                this.Hide();
-                saleWindowForSeller.Show();
+                if (login == "admin" && password == "admin")
+                {
+                    MainAdminWindow mainAdminWindow = new MainAdminWindow();
+                    this.Hide();
+                    mainAdminWindow.Show();
+                }
+                else
+                {
+                    var seller = context.Sellers.FirstOrDefault(s => s.Login == login && s.Password == password);
+
+                    if (seller != null)
+                    {
+                        SaleWindowForSeller saleWindowForSeller = new SaleWindowForSeller();
+                        this.Hide();
+                        saleWindowForSeller.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Неверный логин или пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
         }
     }
