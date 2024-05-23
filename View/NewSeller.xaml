@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop.View"
         mc:Ignorable="d"
-        Title="Магазин" Height="450" Width="300" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png" ResizeMode="NoResize">
+        Title="Магазин" Height="600" Width="800" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png" ResizeMode="NoResize">
     <Grid Background="#A6BDD7">
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
@@ -17,25 +17,25 @@
             <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="45*"/>
-            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Код:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="90" Height="30" FontSize="18" />
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Имя:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="90" Height="30" FontSize="18" />
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Фамилия:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="90" Height="30" FontSize="18" />
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Отчество:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="90" Height="30" FontSize="18" />
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="Логин:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="90" Height="30" FontSize="18" />
-        <TextBlock Grid.Row="5" Grid.Column="0" Text="Пароль:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="90" Height="30" FontSize="18" />
-        <TextBox  Grid.Row="0" Grid.Column="1" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" Text="{Binding SellerId}" IsEnabled="False" FontSize="18"/>
-        <TextBox x:Name="FirstNameTextBox"  Grid.Row="1" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding FirstName}" FontSize="18"/>
-        <TextBox x:Name="LastNameTextBox"  Grid.Row="2" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding LastName}" FontSize="18"/>
-        <TextBox x:Name="PatronymicTextBox" Grid.Row="3" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Patronymic}" FontSize="18"/>
-        <TextBox  x:Name="LoginTextBox" Grid.Row="4" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Login}" FontSize="18" />
-        <TextBox x:Name="PasswordTextBox" Grid.Row="5" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Password}" FontSize="18" MaxLength="10"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Код:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30"  FontSize="20" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Имя:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30"  FontSize="20" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Фамилия:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30"  FontSize="20" />
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Отчество:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Логин:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Пароль:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
+        <TextBox  Grid.Row="0" Grid.Column="1" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" Text="{Binding SellerId}" IsEnabled="False" FontSize="20"/>
+        <TextBox x:Name="FirstNameTextBox"  Grid.Row="1" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding FirstName}" FontSize="18"/>
+        <TextBox x:Name="LastNameTextBox"  Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding LastName}" FontSize="18"/>
+        <TextBox x:Name="PatronymicTextBox" Grid.Row="3" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Patronymic}" FontSize="18"/>
+        <TextBox  x:Name="LoginTextBox" Grid.Row="4" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Login}" FontSize="20" />
+        <TextBox x:Name="PasswordTextBox" Grid.Row="5" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Password}" FontSize="20" MaxLength="10"/>
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="SaveButton" Content="Сохранить" Height="40" Width="90" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsDefault="True" Background="#FCDFD1" Click="SaveButton_Click" />
+            <Button x:Name="SaveButton" Content="Сохранить" Height="40" Width="100" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsDefault="True" Background="#FCDFD1" Click="SaveButton_Click" />
 
-            <Button  Content="Отменить" Height="40" Width="90" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsCancel="True" Background="#FCDFD1" Click="CancelButton_Click"/>
+            <Button  Content="Отменить" Height="40" Width="100" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsCancel="True" Background="#FCDFD1" Click="CancelButton_Click"/>
                 </StackPanel>
     </Grid>
 </Window>

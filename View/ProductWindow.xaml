@@ -16,9 +16,9 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="0.2*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock HorizontalAlignment="Center" Text="Товар" FontSize="18" Height="30" Margin="10" Grid.ColumnSpan="2"></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Text="Товар" FontSize="20" Height="30" Margin="10" Grid.ColumnSpan="2"></TextBlock>
         <DataGrid x:Name="Prod" Grid.Row="1" Grid.RowSpan="2"  AutoGenerateColumns="False" ItemsSource="{Binding Products}"  CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Код" Binding="{Binding ProductId}" Width="40"/>
