@@ -58,15 +58,17 @@ namespace Shop.View
         }
         private void click_new_sale(object sender, RoutedEventArgs e)
         {
-            NewSaleWindow newSaleWindow = new NewSaleWindow(null);
+            NewSaleWindow newSaleWindow = new NewSaleWindow();
             newSaleWindow.DataChanged += UpdateDataGrid;
             newSaleWindow.Show();
         }
 
+        
+
         private void Click_Prod_Search(object sender, RoutedEventArgs e)
         {
-            string prod_Search = Prod_Search.Text;
-            if (string.IsNullOrEmpty(prod_Search))
+            string prodSearch = Prod_Search.Text;
+            if (string.IsNullOrEmpty(prodSearch))
             {
                 Sales = new ObservableCollection<Sale>(_sales);
             }
@@ -75,8 +77,9 @@ namespace Shop.View
                 using (var context = new ShopContext())
                 {
                     var sales = context.Sales
-                       .Where(st => EF.Functions.Like(st.ProductId.ToString(), $"%{prod_Search}%"))
-                       .ToList();
+                        .Include(s => s.Product)
+                        .Where(s => s.Product.Name.Contains(prodSearch))
+                        .ToList();
 
                     if (sales.Count == 0)
                     {
@@ -90,37 +93,8 @@ namespace Shop.View
             }
         }
 
-        private void EditButton_Click(object sender, RoutedEventArgs e)
-        {
-            NewSaleWindow newSaletWindow = new NewSaleWindow((sender as Button).DataContext as Sale);
-            newSaletWindow.DataChanged += UpdateDataGrid;
-
-            newSaletWindow.ShowDialog();
-        }
 
 
-        private void click_delete_seller(Object sender, RoutedEventArgs e)
-        {
-            var saleForRemoving = Sal.SelectedItems.Cast<Sale>().ToList();
-            if (MessageBox.Show($"Вы точно хотите удалить следующие {saleForRemoving.Count()} элементов?", "Внимание",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    using (var context = new Model.ShopContext())
-                    {
-                        context.Sales.RemoveRange(saleForRemoving);
-                        context.SaveChanges();
-                        MessageBox.Show("Данные удалены");
-                        Sales = new ObservableCollection<Sale>(context.Sales.ToList());
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
-            }
-        }
 
         private void UpdateDataGrid(object sender, EventArgs e)
         {

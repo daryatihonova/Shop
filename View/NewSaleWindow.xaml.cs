@@ -1,95 +1,94 @@
-﻿using Shop.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Model;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Shop.View
 {
-    /// <summary>
-    /// Логика взаимодействия для NewSaleWindow.xaml
-    /// </summary>
     public partial class NewSaleWindow : Window
     {
-
         private Sale _currentSale = new Sale();
-
         public delegate void DataChangedEventHandler(object sender, EventArgs e);
         public event DataChangedEventHandler DataChanged;
 
-        public NewSaleWindow(Sale selectedSale)
+        public NewSaleWindow()
         {
             InitializeComponent();
-            if (selectedSale != null)
-                _currentSale = selectedSale;
+            _currentSale.Date = DateTime.Today;
+            DateTextBox.IsEnabled = false;
+            CostTextBox.IsEnabled = false;
 
+            using (var context = new ShopContext())
+            {
+                Products = new ObservableCollection<Product>(context.Products.ToList());
+            }
+            ProductNameComboBox.ItemsSource = Products;
             DataContext = _currentSale;
+
+            ProductNameComboBox.SelectionChanged += ProductNameComboBox_SelectionChanged;
+        }
+
+        public ObservableCollection<Product> Products { get; set; }
+
+        private void ProductNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedProduct = (Product)ProductNameComboBox.SelectedItem;
+            if (selectedProduct != null)
+            {
+                _currentSale.ProductId = selectedProduct.ProductId;
+                _currentSale.Cost = selectedProduct.PriceUnit * _currentSale.AmountOfProducts;
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            using (var context = new ShopContext())
+            if (_currentSale.ProductId == 0)
             {
-                if (_currentSale.SaleId == 0) 
-                {
-                    Sale newSale = new Sale
-                    {
-                        ProductId = int.Parse(ProductIdTextBox.Text),
-                        AmountOfProducts = int.Parse(AmountOfProductsTextBox.Text),
-                        Cost = decimal.Parse(CostTextBox.Text),
-                        Date = DateTime.Parse(DateTextBox.Text),
-                        SellerId = int.Parse(SellerIdTextBox.Text)
-                    };
-
-                    context.Sales.Add(newSale);
-                }
-                else 
-                {
-                    var existingSale = context.Sales.Find(_currentSale.SaleId);
-                    if (existingSale != null)
-                    {
-                        existingSale.ProductId = ProductIdTextBox.Text;
-                        existingSale.AmountOfProducts = AmountOfProductsTextBox.Text;
-                        existingSale.Cost = CostTextBox.Text;
-                        existingSale.Date = DateTextBox.Text;
-                        existingSale.SellerId = SellerIdTextBox.Text;
-                    }
-                }
-
-                context.SaveChanges();
-                DataContext = _currentSale;
-               
-                DataChanged?.Invoke(this, EventArgs.Empty);
-
-
+                MessageBox.Show("Выберите товар в ComboBox.", "Ошибка");
+                return;
             }
 
-            MessageBox.Show("Информация сохранена!", "Успешно");
+            using (var context = new ShopContext())
+            {
+                var product = context.Products.Find(_currentSale.ProductId);
+                if (product == null)
+                {
+                    MessageBox.Show("Товар с таким ID не найден.", "Ошибка");
+                    return;
+                }
+
+                _currentSale.Cost = product.PriceUnit * _currentSale.AmountOfProducts;
+
+                Sale newSale = new Sale
+                {
+                    ProductId = _currentSale.ProductId,
+                    AmountOfProducts = _currentSale.AmountOfProducts,
+                    Cost = _currentSale.Cost,
+                    Date = _currentSale.Date,
+                    SellerId = _currentSale.SellerId
+                };
+
+                context.Sales.Add(newSale);
+
+                try
+                {
+                    context.SaveChanges();
+                    DataChanged?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show("Информация сохранена!", "Успешно");
+                    this.Close();
+                }
+                catch (DbUpdateException ex)
+                {
+                    MessageBox.Show($"Ошибка сохранения: {ex.Message}", "Ошибка");
+                    Console.WriteLine(ex);
+                }
+            }
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
 
-            this.Close();
-        }
-
-
-
-
-
-
-
-
-
+        private void CancelButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
     }
-
 }
