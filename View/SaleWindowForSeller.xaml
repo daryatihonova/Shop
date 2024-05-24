@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop.View"
         mc:Ignorable="d"
-       Title="Магазин" Height="600" Width="800" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png" ResizeMode="NoResize">
+       Title="Магазин" Height="600" Width="950" Icon="C:\Users\Darya\OneDrive\Рабочий стол\учебная практика май\icon-shop.png" ResizeMode="NoResize">
     <Grid Background="#A6BDD7">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
@@ -18,26 +18,26 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="0.3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock HorizontalAlignment="Center" Text="Продажа" FontSize="18" Height="30" Margin="10" Grid.ColumnSpan="2"></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Text="Продажа" FontSize="20" Height="30" Margin="10" Grid.ColumnSpan="2"></TextBlock>
         <DataGrid x:Name="Sal" Grid.Row="1" Grid.RowSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Sales}" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Код" Binding="{Binding SaleId}" Width="40"/>
-                <DataGridTextColumn x:Name="ProductIdTextBox" Header="Наименование товара" Binding="{Binding Product.Name}" Width="95"/>
-                <DataGridTextColumn x:Name="AmountOfProductsTextBox" Header="Кол-во товаров" Binding="{Binding AmountOfProducts}" Width="100"/>
-                <DataGridTextColumn x:Name="CostTextBox" Header="Стоимость" Binding="{Binding Cost, StringFormat={}{0:F2}}" Width="90"/>
-                <DataGridTextColumn x:Name="DateTextBox" Header="Дата" Binding="{Binding Date, StringFormat='dd/MM/yyy'}" Width="90"/>
-                <DataGridTextColumn x:Name="SellerIdTextBox" Header="ФИО продавца" Binding="{Binding Seller.FullName}" Width="105"/>
-              </DataGrid.Columns>
+                <DataGridTextColumn x:Name="ProductIdTextBox" Header="Наименование товара" Binding="{Binding Product.Name}" Width="160" FontSize="20"/>
+                <DataGridTextColumn x:Name="AmountOfProductsTextBox" Header="Кол-во товаров" Binding="{Binding AmountOfProducts}" Width="100" FontSize="20"/>
+                <DataGridTextColumn x:Name="CostTextBox" Header="Стоимость" Binding="{Binding Cost, StringFormat={}{0:F2}}" Width="90" FontSize="20"/>
+                <DataGridTextColumn x:Name="DateTextBox" Header="Дата" Binding="{Binding Date, StringFormat='dd/MM/yyy'}" Width="90" FontSize="20"/>
+                <DataGridTextColumn x:Name="SellerIdTextBox" Header="ФИО продавца" Binding="{Binding Seller.FullName}" Width="105" FontSize="20"/>
+            </DataGrid.Columns>
         </DataGrid>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="Поиск товара" Width="110" Height="30" FontSize="12" HorizontalAlignment="Left" Margin="50,10,0,85" ></TextBlock>
-        <TextBox x:Name="Prod_Search"   Grid.Row="1" Grid.Column="1" Margin="10,34,10,63" FontSize="18"/>
-        <Button Grid.Row="1" Grid.Column="1" FontSize="18" Background="#FCDFD1" Content="Поиск" Margin="42,89,50,10" Click="Click_Prod_Search"/>
-        <StackPanel Grid.Row="3" Height="40" Width="100" Orientation="Horizontal">
-            <Button  HorizontalAlignment="Left" Content="Добавить" Height="40" Width="90" FontSize="18" Background="#FCDFD1"  Margin="0 0 5 0" Click="click_new_sale"></Button>
-            
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Поиск товара" Width="135" Height="30" FontSize="20" HorizontalAlignment="Left" Margin="49,4,0,97" ></TextBlock>
+        <TextBox x:Name="Prod_Search"   Grid.Row="1" Grid.Column="1" Margin="10,34,10,63" FontSize="20"/>
+        <Button Grid.Row="1" Grid.Column="1" FontSize="20" Background="#FCDFD1" Content="Поиск" Margin="42,89,50,10" Click="Click_Prod_Search"/>
+        <StackPanel Grid.Row="3" Height="40" Width="130" Orientation="Horizontal">
+            <Button  HorizontalAlignment="Left" Content="Добавить" Height="40" Width="100" FontSize="20" Background="#FCDFD1"  Margin="0 0 5 0" Click="click_new_sale"></Button>
+
         </StackPanel>
-        <Button Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Content="Отчёт за день" Height="40" FontSize="18" Background="#FCDFD1"  Margin="27,0,26,0" Click="ExportToExcel_Click"/>
- <Button Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Выход" Height="40" Width="75" FontSize="18" Background="#FCDFD1"  Margin="5" Click="back"></Button>
-        <Label Grid.Row="4"  Grid.Column="1" Name="LiveTimeLabel"  VerticalAlignment="Bottom" FontSize="18" HorizontalAlignment="Right" Margin="5"/>
+        <Button Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Content="Отчёт за день" Height="40" FontSize="20" Background="#FCDFD1"  Margin="27,0,26,0" Click="ExportToExcel_Click"/>
+        <Button Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Выход" Height="40" Width="75" FontSize="20" Background="#FCDFD1"  Margin="5" Click="back"></Button>
+        <Label Grid.Row="4"  Grid.Column="1" Name="LiveTimeLabel"  VerticalAlignment="Bottom" FontSize="20" HorizontalAlignment="Right" Margin="5"/>
     </Grid>
 </Window>

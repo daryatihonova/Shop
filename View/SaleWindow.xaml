@@ -30,13 +30,13 @@
         </DataGrid>
 
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
-            <TextBlock  Text="Поиск по дате" Width="150" Height="30" FontSize="18" TextAlignment="Center" />
+            <TextBlock  Text="Поиск по дате" Width="150" Height="30" FontSize="20" TextAlignment="Center" />
             <TextBox x:Name="Date_Search"   FontSize="20" Margin="10 0 10 0"/>
 
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
 
-        <Button Grid.Row="1" Grid.Column="1" FontSize="18" Background="#FCDFD1" Content="Поиск" Height="40" VerticalAlignment="Top" Click="Click_Search" Margin="55,87,43,0"/>
+        <Button Grid.Row="1" Grid.Column="1" FontSize="20" Background="#FCDFD1" Content="Поиск" Height="40" VerticalAlignment="Top" Click="Click_Search" Margin="55,87,43,0"/>
 
 
 
