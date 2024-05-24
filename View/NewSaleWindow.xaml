@@ -28,12 +28,12 @@
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Дата:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Продавец:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
         <TextBox x:Name="SaleIdTextBox" Grid.Row="0" Grid.Column="1" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" Text="{Binding SaleId}" IsEnabled="False" FontSize="20"/>
-        <ComboBox x:Name="ProductNameComboBox"   Grid.Row="1" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" ItemsSource="{Binding Products}" DisplayMemberPath="Name" />
+        <ComboBox x:Name="ProductNameComboBox"   Grid.Row="1" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" ItemsSource="{Binding Products}" DisplayMemberPath="Name"  SelectionChanged="ProductComboBox_SelectionChanged"/>
         <TextBox x:Name="AmountOfProductsTextBox"  Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding AmountOfProducts}" FontSize="18"/>
         <TextBox x:Name="CostTextBox" Grid.Row="3" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Cost}" FontSize="20"/>
         <TextBox x:Name="DateTextBox" Grid.Row="4" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding Date}" FontSize="20" />
         <TextBox x:Name="SellerIdTextBox" Grid.Row="5" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding SellerId}" FontSize="20"/>
-        <TextBlock x:Name="ProdStor_CountTextBox" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" Height="40"  FontSize="20" FontWeight="Heavy"/>
+        <TextBlock x:Name="ProductQuantityTextBlock" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" Height="40"  FontSize="20" FontWeight="Heavy" Margin="5"/>
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="SaveButton" Content="Сохранить" Height="40" Width="100" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsDefault="True" Background="#FCDFD1" Click="SaveButton_Click"/>
             <Button  Content="Отменить" Height="40" Width="100" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,10,10,5" IsCancel="True" Background="#FCDFD1" Click="CancelButton_Click"/>

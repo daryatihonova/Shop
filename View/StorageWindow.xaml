@@ -22,10 +22,10 @@
         <DataGrid x:Name="Stor" Grid.Row="1"  Grid.RowSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Storages}" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Код" Binding="{Binding StorageId}" Width="30" FontSize="20"/>
-                <DataGridTextColumn Header="Товар" Binding="{Binding Product.Name}" Width="170" FontSize="20"/>
-                <DataGridTextColumn Header="Кол-во товаров на складе" Binding="{Binding QuantityOfProducts}" Width="100" FontSize="20"/>
-                <DataGridTextColumn Header="Общая стоимость" Binding="{Binding TotalCost, StringFormat={}{0:F2}}" Width="90" FontSize="20"/>
-                <DataGridTextColumn Header="Дата поступления" Binding="{Binding DateDelivery, StringFormat='dd/MM/yyy'}" Width="100" FontSize="20"/>
+                <DataGridTextColumn Header="Товар" Binding="{Binding Product.Name}" Width="270" FontSize="20"/>
+                <DataGridTextColumn Header="Кол-во товаров" Binding="{Binding QuantityOfProducts}" Width="120" FontSize="20"/>
+                <DataGridTextColumn Header="Общая стоимость" Binding="{Binding TotalCost, StringFormat={}{0:F2}}" Width="140" FontSize="20"/>
+                <DataGridTextColumn Header="Дата поступления" Binding="{Binding DateDelivery, StringFormat='dd/MM/yyy'}" Width="150" FontSize="20"/>
                 <DataGridTemplateColumn Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -38,7 +38,7 @@
         <TextBlock Grid.Row="1" Grid.Column="1" Text="Поиск товара" Width="127" Height="30" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,91" ></TextBlock>
         <TextBox x:Name="Stor_Search"   Grid.Row="1" Grid.Column="1" Margin="10,33,10,65" FontSize="20"/>
         <Button Grid.Row="1" Grid.Column="1" FontSize="20" Background="#FCDFD1" Content="Поиск" Margin="36,85,38,10" Click="Click_Stor_Search"/>
-        <StackPanel Grid.Row="3" Height="40" Orientation="Horizontal" Width="100">
+        <StackPanel Grid.Row="3" Height="40" Orientation="Horizontal" Width="150">
             <Button  HorizontalAlignment="Right" Content="Удалить" Height="40" Width="100" FontSize="20" Background="#FCDFD1"  Margin="5 0 0 0" Click="click_delete_storage"></Button>
         </StackPanel>
         <Button Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Назад" Height="40" Width="75" FontSize="20" Background="#FCDFD1"  Margin="5" Click="back_admin_window"></Button>

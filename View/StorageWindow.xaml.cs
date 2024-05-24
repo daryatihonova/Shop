@@ -111,8 +111,9 @@ namespace Shop.View
         {
             using (var context = new ShopContext())
             {
-                Storages = new ObservableCollection<Storage>(context.Storages.ToList());
+                Storages = new ObservableCollection<Storage>(context.Storages.Include(s => s.Product).ToList());
             }
         }
+
     }
 }

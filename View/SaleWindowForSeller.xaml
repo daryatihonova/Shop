@@ -22,11 +22,11 @@
         <DataGrid x:Name="Sal" Grid.Row="1" Grid.RowSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Sales}" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Код" Binding="{Binding SaleId}" Width="40"/>
-                <DataGridTextColumn x:Name="ProductIdTextBox" Header="Наименование товара" Binding="{Binding Product.Name}" Width="160" FontSize="20"/>
+                <DataGridTextColumn x:Name="ProductIdTextBox" Header="Наименование товара" Binding="{Binding Product.Name}" Width="220" FontSize="20"/>
                 <DataGridTextColumn x:Name="AmountOfProductsTextBox" Header="Кол-во товаров" Binding="{Binding AmountOfProducts}" Width="100" FontSize="20"/>
-                <DataGridTextColumn x:Name="CostTextBox" Header="Стоимость" Binding="{Binding Cost, StringFormat={}{0:F2}}" Width="90" FontSize="20"/>
-                <DataGridTextColumn x:Name="DateTextBox" Header="Дата" Binding="{Binding Date, StringFormat='dd/MM/yyy'}" Width="90" FontSize="20"/>
-                <DataGridTextColumn x:Name="SellerIdTextBox" Header="ФИО продавца" Binding="{Binding Seller.FullName}" Width="105" FontSize="20"/>
+                <DataGridTextColumn x:Name="CostTextBox" Header="Стоимость" Binding="{Binding Cost, StringFormat={}{0:F2}}" Width="100" FontSize="20"/>
+                <DataGridTextColumn x:Name="DateTextBox" Header="Дата" Binding="{Binding Date, StringFormat='dd/MM/yyy'}" Width="140" FontSize="20"/>
+                <DataGridTextColumn x:Name="SellerIdTextBox" Header="ФИО продавца" Binding="{Binding Seller.FullName}" Width="140" FontSize="20"/>
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock Grid.Row="1" Grid.Column="1" Text="Поиск товара" Width="135" Height="30" FontSize="20" HorizontalAlignment="Left" Margin="49,4,0,97" ></TextBlock>

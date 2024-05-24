@@ -47,29 +47,41 @@ namespace Shop.View
         {
             if (_currentSale.ProductId == 0)
             {
-                MessageBox.Show("Выберите товар в ComboBox.", "Ошибка");
+                MessageBox.Show("Выберите товар.", "Ошибка");
                 return;
             }
 
             using (var context = new ShopContext())
             {
-                var product = context.Products.Find(_currentSale.ProductId);
-                if (product == null)
+                var storage = context.Storages.Include(s => s.Product).FirstOrDefault(s => s.ProductId == _currentSale.ProductId);
+                if (storage == null)
                 {
-                    MessageBox.Show("Товар с таким ID не найден.", "Ошибка");
+                    MessageBox.Show("Товар не найден на складе.", "Ошибка");
                     return;
                 }
 
-                _currentSale.Cost = product.PriceUnit * _currentSale.AmountOfProducts;
+                // Обновление количества товара на складе в текстовом блоке
+                ProductQuantityTextBlock.Text = storage.QuantityOfProducts.ToString();
+
+                if (storage.QuantityOfProducts < _currentSale.AmountOfProducts)
+                {
+                    MessageBox.Show("Недостаточно товара на складе.", "Ошибка");
+                    return;
+                }
+
+                decimal cost = storage.Product.PriceUnit * _currentSale.AmountOfProducts;
 
                 Sale newSale = new Sale
                 {
                     ProductId = _currentSale.ProductId,
                     AmountOfProducts = _currentSale.AmountOfProducts,
-                    Cost = _currentSale.Cost,
+                    Cost = cost,
                     Date = _currentSale.Date,
                     SellerId = _currentSale.SellerId
                 };
+
+                storage.QuantityOfProducts -= _currentSale.AmountOfProducts;
+                storage.TotalCost -= cost;
 
                 context.Sales.Add(newSale);
 
@@ -89,6 +101,26 @@ namespace Shop.View
         }
 
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e) { this.Close(); }
+        private void ProductComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ProductNameComboBox.SelectedItem != null)
+            {
+                Product selectedProduct = (Product)ProductNameComboBox.SelectedItem;
+
+                using (var context = new ShopContext())
+                {
+                    var storage = context.Storages.FirstOrDefault(s => s.ProductId == selectedProduct.ProductId);
+                    if (storage != null)
+                    {
+                        ProductQuantityTextBlock.Text = $"Количество товаров на складе: {storage.QuantityOfProducts}";
+                    }
+                }
+            }
+        }
+
+
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e) 
+        { this.Close(); }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shop.Model;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,27 +53,26 @@ namespace Shop.View
                         existingStorage.TotalCost = product.PriceUnit * existingStorage.QuantityOfProducts;
                         existingStorage.DateDelivery = DateTime.Today;
                         existingStorage.Product = product;
-                    }
 
-                    DataContext = _currentStorage;
+                        try
+                        {
+                            context.SaveChanges();
 
-                    try
-                    {
-                        context.SaveChanges();
-                        _storageWindow.Stor.ItemsSource = context.Storages.Include("Product").ToList(); // Установить источник данных таблицы
+                            // Обновляем ObservableCollection<Storage> в окне StorageWindow
+                            _storageWindow.Storages = new ObservableCollection<Storage>(context.Storages.Include(s => s.Product).ToList());
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Ошибка при сохранении данных: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Ошибка при сохранении данных: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    DataChanged?.Invoke(this, e);
+                    MessageBox.Show("Информация сохранена!", "Успешно");
+                    Close();
                 }
-
-                DataChanged?.Invoke(this, e);
-                MessageBox.Show("Информация сохранена!", "Успешно");
-
-                Close(); // Закрыть окно ChangeStorage
             }
         }
+
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
