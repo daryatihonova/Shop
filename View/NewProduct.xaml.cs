@@ -19,7 +19,7 @@ namespace Shop.View
             InitializeComponent();
             if (selectedProduct != null)
                 _currentProduct = selectedProduct;
-            _currentProduct.DateOfLastDelivery = DateTime.Today; // Устанавливаем сегодняшнюю дату
+            _currentProduct.DateOfLastDelivery = DateTime.Today;
             DataContext = _currentProduct;
         }
 
@@ -27,46 +27,53 @@ namespace Shop.View
         {
             using (var context = new Model.ShopContext())
             {
-                
-                    _currentProduct.Name = NameTextBox.Text;
-                    _currentProduct.Description = DescriptionTextBox.Text;
-                    _currentProduct.UnitOfMeasurement = UnitOfMeasurementTextBox.Text;
-                    _currentProduct.PriceUnit = decimal.Parse(PriceUnitTextBox.Text.Trim(), CultureInfo.InvariantCulture);
-                    _currentProduct.Quantity = int.Parse(QuantityTextBox.Text);
-                    _currentProduct.DateOfLastDelivery = DateTime.Today.Date;
+                _currentProduct.Name = NameTextBox.Text;
+                _currentProduct.Description = DescriptionTextBox.Text;
+                _currentProduct.UnitOfMeasurement = UnitOfMeasurementTextBox.Text;
+                _currentProduct.PriceUnit = decimal.Parse(PriceUnitTextBox.Text.Trim(), CultureInfo.InvariantCulture);
+                _currentProduct.Quantity = int.Parse(QuantityTextBox.Text);
+                _currentProduct.DateOfLastDelivery = DateTime.Today.Date;
 
+                var existingProduct = context.Products.FirstOrDefault(p => p.Name == _currentProduct.Name);
+               
+                if (existingProduct != null)
+                {
+                    _currentProduct = existingProduct;
+                    MessageBox.Show($"Такой товар уже существует. Перейдите в окно изменения. Код товара: {existingProduct.ProductId}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
                     if (_currentProduct.ProductId == 0)
                     {
                         decimal totalCost = _currentProduct.PriceUnit * _currentProduct.Quantity;
                         context.Products.Add(_currentProduct);
-                        context.SaveChanges(); // Сохраняем изменения, чтобы получить ProductId
+                        context.SaveChanges();
                         Model.Storage newStorageEntry = new Model.Storage
                         {
                             QuantityOfProducts = _currentProduct.Quantity,
                             TotalCost = totalCost,
                             DateDelivery = DateTime.Now,
                             ProductId = _currentProduct.ProductId,
-                            Product = _currentProduct // Устанавливаем Product для Storage
-
+                            Product = _currentProduct
                         };
                         context.Storages.Add(newStorageEntry);
                     }
                     else
                     {
-                        var existingProduct = context.Products.Find(_currentProduct.ProductId);
-                        if (existingProduct != null)
+                        var existingProductToUpdate = context.Products.Find(_currentProduct.ProductId);
+                        if (existingProductToUpdate != null)
                         {
-                            existingProduct.Name = _currentProduct.Name;
-                            existingProduct.Description = _currentProduct.Description;
-                            existingProduct.UnitOfMeasurement = _currentProduct.UnitOfMeasurement;
-                            existingProduct.PriceUnit = _currentProduct.PriceUnit;
-                            existingProduct.Quantity = _currentProduct.Quantity;
-                            existingProduct.DateOfLastDelivery = _currentProduct.DateOfLastDelivery;
-                            decimal totalCost = existingProduct.PriceUnit * existingProduct.Quantity;
-                            var storageEntry = context.Storages.FirstOrDefault(s => s.ProductId == existingProduct.ProductId);
+                            existingProductToUpdate.Name = _currentProduct.Name;
+                            existingProductToUpdate.Description = _currentProduct.Description;
+                            existingProductToUpdate.UnitOfMeasurement = _currentProduct.UnitOfMeasurement;
+                            existingProductToUpdate.PriceUnit = _currentProduct.PriceUnit;
+                            existingProductToUpdate.Quantity = _currentProduct.Quantity;
+                            existingProductToUpdate.DateOfLastDelivery = _currentProduct.DateOfLastDelivery;
+                            decimal totalCost = existingProductToUpdate.PriceUnit * existingProductToUpdate.Quantity;
+                            var storageEntry = context.Storages.FirstOrDefault(s => s.ProductId == existingProductToUpdate.ProductId);
                             if (storageEntry != null)
                             {
-                                storageEntry.QuantityOfProducts = existingProduct.Quantity;
+                                storageEntry.QuantityOfProducts = existingProductToUpdate.Quantity;
                                 storageEntry.TotalCost = totalCost;
                                 storageEntry.DateDelivery = DateTime.Now;
                             }
@@ -76,8 +83,7 @@ namespace Shop.View
                     DataContext = _currentProduct;
                     DataChanged?.Invoke(this, EventArgs.Empty);
                     MessageBox.Show("Информация сохранена!", "Успешно");
-                
-               
+                }
             }
         }
 
@@ -86,29 +92,23 @@ namespace Shop.View
             this.Close();
         }
 
-        private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+            private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             using (var context = new ShopContext())
             {
                 var product = context.Products.FirstOrDefault(p => p.Name == NameTextBox.Text);
-                if (product == null)
+                if (product != null)
                 {
-                    Prod_Count.Text = "Новый товар";
+                    MessageBox.Show($"Такой товар уже существует. Перейдите в окно изменения. ID товара: {product.ProductId}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.Close();
                 }
-                else
-                {
-                    var storage = context.Storages.FirstOrDefault(s => s.ProductId == product.ProductId);
-                    if (storage != null)
-                    {
-                        Prod_Count.Text = $"Количество товара на складе: {storage.QuantityOfProducts.ToString()}";
-                    }
-                    else
-                    {
-                        Prod_Count.Text = "0";
-                    }
-                }
+
+                else Prod_Count.Text = "Новый товар";
+
             }
         }
+
+
+                    
     }
 }
-   
