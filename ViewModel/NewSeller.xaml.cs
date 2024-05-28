@@ -81,6 +81,10 @@ namespace Shop.View
             {
                 MessageBox.Show("Пароль должен содержать минимум 6 символов.");
             }
+            else if(password.Length > 10)
+            {
+                MessageBox.Show("Пароль должен содержать менее 10 символов.");
+            }
             else if (!password.Any(char.IsUpper))
             {
                 MessageBox.Show("Пароль должен содержать минимум 1 прописную букву.");

@@ -44,10 +44,9 @@ namespace Shop
                 else
                 {
                     var seller = context.Sellers.FirstOrDefault(s => s.Login == login && s.Password == password);
-
                     if (seller != null)
                     {
-                        SaleWindowForSeller saleWindowForSeller = new SaleWindowForSeller();
+                        SaleWindowForSeller saleWindowForSeller = new SaleWindowForSeller(seller.SellerId); // Передача аргумента currentUserId
                         this.Hide();
                         saleWindowForSeller.Show();
                     }
@@ -56,6 +55,7 @@ namespace Shop
                         MessageBox.Show("Неверный логин или пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
+
             }
         }
     }

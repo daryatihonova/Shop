@@ -13,10 +13,12 @@ namespace Shop.View
         private Sale _currentSale = new Sale();
         public delegate void DataChangedEventHandler(object sender, EventArgs e);
         public event DataChangedEventHandler DataChanged;
+        private int _currentUserId;
 
-        public NewSaleWindow()
+        public NewSaleWindow(int currentUserId)
         {
             InitializeComponent();
+            _currentUserId = currentUserId;
             _currentSale.Date = DateTime.Today;
             DateTextBox.IsEnabled = false;
             CostTextBox.IsEnabled = false;
@@ -77,7 +79,7 @@ namespace Shop.View
                     AmountOfProducts = _currentSale.AmountOfProducts,
                     Cost = cost,
                     Date = _currentSale.Date,
-                    SellerId = _currentSale.SellerId
+                    SellerId = _currentUserId
                 };
 
                 storage.QuantityOfProducts -= _currentSale.AmountOfProducts;

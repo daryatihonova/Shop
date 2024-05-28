@@ -32,10 +32,9 @@
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
             <TextBlock  Text="Поиск по дате" Width="150" Height="30" FontSize="20" TextAlignment="Center" />
             <TextBox x:Name="Date_Search"   FontSize="20" Margin="10 0 10 0"/>
-
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
-
+        <Button Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Content="Отчёт за день" Height="40" FontSize="20" Background="#FCDFD1"  Margin="27,0,26,0" Click="ExportToExcel_Click"/>
         <Button Grid.Row="1" Grid.Column="1" FontSize="20" Background="#FCDFD1" Content="Поиск" Height="40" VerticalAlignment="Top" Click="Click_Search" Margin="55,87,43,0"/>
 
 

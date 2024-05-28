@@ -20,17 +20,16 @@
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Код:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Код товара:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Количество товара:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Общая стоимость:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="Дата поступления:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
+        
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Товар:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Количество товара:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Общая стоимость:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Дата поступления:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="215" Height="30" FontSize="20" />
 
-        <TextBox  x:Name="StorageIdTextBox"  Grid.Row="0" Grid.Column="1" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" Text="{Binding StorageId}" IsEnabled="False" FontSize="20"/>
-        <TextBox x:Name="ProductIdTextBox" Grid.Row="1" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding ProductId}" FontSize="20"/>
-        <TextBox x:Name="QuantityOfProductsTextBox" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding QuantityOfProducts}" FontSize="20"/>
-        <TextBox x:Name="TotalCostTextBox" Grid.Row="3" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding TotalCost}" FontSize="20"/>
-        <TextBox x:Name="DateDeliveryTextBox" Grid.Row="4" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding DateDelivery}" FontSize="20" />
+        <TextBox x:Name="ProductIdTextBox" Grid.Row="0" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding ProductId}" FontSize="20"/>
+        <TextBox x:Name="QuantityOfProductsTextBox" Grid.Row="1" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding QuantityOfProducts}" FontSize="20"/>
+        <TextBox x:Name="TotalCostTextBox" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding TotalCost}" FontSize="20"/>
+        <TextBox x:Name="DateDeliveryTextBox" Grid.Row="3" Grid.Column="1" Height="35" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Margin="5" Text="{Binding DateDelivery}" FontSize="20" />
 
         <TextBlock Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Height="40" Width="90" Margin="21,7,0,7"/>
         <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" Width="240" Margin="293,0,0,0">

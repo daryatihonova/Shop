@@ -74,18 +74,19 @@ namespace Shop.View
             {
                 using (var context = new ShopContext())
                 {
-                    var products = context.Products.Where(p => EF.Functions.Like(p.Name, $"%{prod_Search}%")).ToList();
+                    var products = context.Products.Where(p => p.Name == prod_Search).ToList();
                     if (products.Count == 0)
                     {
                         MessageBox.Show("Такого товара не существует.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {
-                        Products = new ObservableCollection<Product> (products);
+                        Products = new ObservableCollection<Product>(products);
                     }
                 }
             }
         }
+
 
         private void EditButton_Click(object sender, EventArgs e)
         {

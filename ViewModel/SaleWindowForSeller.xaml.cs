@@ -26,15 +26,17 @@ namespace Shop.View
     /// </summary>
     public partial class SaleWindowForSeller : Window
     {
+        private int _currentUserId;
         private ObservableCollection<Sale> _sales;
         public ObservableCollection<Sale> Sales
         {
             get { return _sales; }
             set { _sales = value; Sal.ItemsSource = value; }
         }
-        public SaleWindowForSeller()
+        public SaleWindowForSeller(int currentUserId)
         {
             InitializeComponent();
+            _currentUserId = currentUserId;
             DispatcherTimer LiveTime = new DispatcherTimer();
             LiveTime.Interval = TimeSpan.FromSeconds(1);
             LiveTime.Tick += timer_Tick;
@@ -61,10 +63,11 @@ namespace Shop.View
         }
         private void click_new_sale(object sender, RoutedEventArgs e)
         {
-            NewSaleWindow newSaleWindow = new NewSaleWindow();
+            NewSaleWindow newSaleWindow = new NewSaleWindow(_currentUserId);
             newSaleWindow.DataChanged += UpdateDataGrid;
             newSaleWindow.Show();
         }
+
 
 
 
@@ -120,7 +123,7 @@ namespace Shop.View
             {
                 var worksheet = workbook.Worksheets.Add("Продажи за сегодня");
 
-                
+
                 worksheet.Columns().Width = 25;
 
                 // Объединение ячеек с A1 до F1 и вставка текущей даты
@@ -128,12 +131,12 @@ namespace Shop.View
                 worksheet.Cell("A1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                 // Добавляем заголовки
-                worksheet.Cell(2, 1).Value = "Код";
-                worksheet.Cell(2, 2).Value = "Наименование товара";
-                worksheet.Cell(2, 3).Value = "Кол-во товаров";
-                worksheet.Cell(2, 4).Value = "Стоимость";
-                worksheet.Cell(2, 5).Value = "Дата";
-                worksheet.Cell(2, 6).Value = "ФИО продавца";
+                
+                worksheet.Cell(2, 1).Value = "Наименование товара";
+                worksheet.Cell(2, 2).Value = "Кол-во товаров";
+                worksheet.Cell(2, 3).Value = "Стоимость";
+                worksheet.Cell(2, 4).Value = "Дата";
+                worksheet.Cell(2, 5).Value = "ФИО продавца";
 
                 // Добавляем данные о продажах
                 int row = 3;
@@ -141,12 +144,12 @@ namespace Shop.View
                 {
                     if (sale.Date.Date == DateTime.Today)
                     {
-                        worksheet.Cell(row, 1).Value = sale.SaleId;
-                        worksheet.Cell(row, 2).Value = sale.Product.Name;
-                        worksheet.Cell(row, 3).Value = sale.AmountOfProducts;
-                        worksheet.Cell(row, 4).Value = sale.Cost;
-                        worksheet.Cell(row, 5).Value = sale.Date.ToString("dd/MM/yyyy");
-                        worksheet.Cell(row, 6).Value = sale.Seller.FullName;
+                       
+                        worksheet.Cell(row, 1).Value = sale.Product.Name;
+                        worksheet.Cell(row, 2).Value = sale.AmountOfProducts;
+                        worksheet.Cell(row, 3).Value = sale.Cost;
+                        worksheet.Cell(row, 4).Value = sale.Date.ToString("dd/MM/yyyy");
+                        worksheet.Cell(row, 5).Value = sale.Seller.FullName;
                         row++;
                     }
                 }
@@ -175,6 +178,8 @@ namespace Shop.View
                 }
             }
         }
+
+
 
 
 

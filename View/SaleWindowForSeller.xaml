@@ -31,7 +31,7 @@
         </DataGrid>
         <TextBlock Grid.Row="1" Grid.Column="1" Text="Поиск товара" Width="135" Height="30" FontSize="20" HorizontalAlignment="Left" Margin="49,4,0,97" ></TextBlock>
         <TextBox x:Name="Prod_Search"   Grid.Row="1" Grid.Column="1" Margin="10,34,10,63" FontSize="20"/>
-        <Button Grid.Row="1" Grid.Column="1" FontSize="20" Background="#FCDFD1" Content="Поиск" Margin="42,89,50,10" Click="Click_Prod_Search"/>
+        <Button Grid.Row="1" Grid.Column="1" FontSize="20" Background="#FCDFD1" Content="Поиск" Margin="42,84,50,10" Click="Click_Prod_Search"/>
         <StackPanel Grid.Row="3" Height="40" Width="130" Orientation="Horizontal">
             <Button  HorizontalAlignment="Left" Content="Добавить" Height="40" Width="100" FontSize="20" Background="#FCDFD1"  Margin="0 0 5 0" Click="click_new_sale"></Button>
 
