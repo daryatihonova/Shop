@@ -25,6 +25,15 @@ namespace Shop.View
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text) ||
+                string.IsNullOrWhiteSpace(DescriptionTextBox.Text) ||
+                string.IsNullOrWhiteSpace(UnitOfMeasurementTextBox.Text) ||
+                string.IsNullOrWhiteSpace(PriceUnitTextBox.Text) ||
+                string.IsNullOrWhiteSpace(QuantityTextBox.Text))
+            {
+                MessageBox.Show("Необходимо заполнить все поля!", "Ошибка");
+                return;
+            }
             using (var context = new Model.ShopContext())
             {
                 var existingProduct = context.Products.FirstOrDefault(p => p.Name == _currentProduct.Name);

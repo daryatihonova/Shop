@@ -156,7 +156,8 @@ namespace Shop.View
 
                 // Добавляем заголовок и формулу для вычисления общей выручки за день
                 worksheet.Cell(2, 8).Value = "Выручка";
-                worksheet.Cell(3, 8).FormulaA1 = $"SUM(D3:D{row - 1})";
+                worksheet.Cell(3, 8).FormulaA1 = $"SUM(C3:C{row - 1})";
+
                 worksheet.Cell("H2").Style.Font.Bold = true;
 
                 // Сохраняем файл Excel

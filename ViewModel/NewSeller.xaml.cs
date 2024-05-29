@@ -8,25 +8,31 @@ namespace Shop.View
     public partial class NewSeller : Window
     {
         private Seller _currentSeller = new Seller();
-        
+
         public delegate void DataChangedEventHandler(object sender, EventArgs e);
         public event DataChangedEventHandler DataChanged;
-
 
         public NewSeller(Seller selectedSeller)
         {
             InitializeComponent();
-
             if (selectedSeller != null)
                 _currentSeller = selectedSeller;
-
             DataContext = _currentSeller;
-            PasswordTextBox.LostFocus += PasswordTextBox_LostFocus; // Добавляем обработчик события LostFocus для поля пароля 
-
+            PasswordTextBox.LostFocus += PasswordTextBox_LostFocus; // Добавляем обработчик события LostFocus для поля пароля
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text) ||
+                string.IsNullOrWhiteSpace(LastNameTextBox.Text) ||
+                string.IsNullOrWhiteSpace(PatronymicTextBox.Text) ||
+                string.IsNullOrWhiteSpace(LoginTextBox.Text) ||
+                string.IsNullOrWhiteSpace(PasswordTextBox.Text))
+            {
+                MessageBox.Show("Необходимо заполнить все поля!", "Ошибка");
+                return;
+            }
+
             using (var context = new ShopContext())
             {
                 if (_currentSeller.SellerId == 0) // Новый продавец
@@ -39,10 +45,9 @@ namespace Shop.View
                         Login = LoginTextBox.Text,
                         Password = PasswordTextBox.Text
                     };
-
                     context.Sellers.Add(newSeller);
                 }
-                else // Существующий продавец
+                else
                 {
                     var existingSeller = context.Sellers.Find(_currentSeller.SellerId);
                     if (existingSeller != null)
@@ -54,34 +59,27 @@ namespace Shop.View
                         existingSeller.Password = PasswordTextBox.Text;
                     }
                 }
-
                 context.SaveChanges();
                 DataContext = _currentSeller;
                 // Оповещаем SellerWindow о том, что данные были изменены
                 DataChanged?.Invoke(this, EventArgs.Empty);
-
-
             }
-
             MessageBox.Show("Информация сохранена!", "Успешно");
         }
 
-
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-           
             this.Close();
         }
 
         private void PasswordTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             string password = PasswordTextBox.Text;
-
             if (password.Length < 6)
             {
                 MessageBox.Show("Пароль должен содержать минимум 6 символов.");
             }
-            else if(password.Length > 10)
+            else if (password.Length > 10)
             {
                 MessageBox.Show("Пароль должен содержать менее 10 символов.");
             }
@@ -98,6 +96,5 @@ namespace Shop.View
                 MessageBox.Show("Пароль должен содержать минимум один из следующих символов: ! @ # $ % ^.");
             }
         }
-
     }
 }

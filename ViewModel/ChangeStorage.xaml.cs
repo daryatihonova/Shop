@@ -24,6 +24,8 @@ namespace Shop.View
 
             _currentStorage.DateDelivery = DateTime.Today;
             DateDeliveryTextBox.IsReadOnly = true;
+            ProductIdTextBox.IsReadOnly = true;
+            TotalCostTextBox.IsReadOnly = true;
             DataContext = _currentStorage;
 
             Closed += ChangeStorage_Closed; // Привязка к обработчику события Closed
