@@ -11,14 +11,17 @@ namespace Shop.View
     public partial class NewProduct : Window
     {
         private Model.Product _currentProduct = new Product();
+
         public delegate void DataChangedEventHandler(object sender, EventArgs e);
         public event DataChangedEventHandler DataChanged;
 
         public NewProduct(Product selectedProduct)
         {
             InitializeComponent();
+
             if (selectedProduct != null)
                 _currentProduct = selectedProduct;
+
             _currentProduct.DateOfLastDelivery = DateTime.Today;
             DataContext = _currentProduct;
         }
@@ -34,6 +37,7 @@ namespace Shop.View
                 MessageBox.Show("Необходимо заполнить все поля!", "Ошибка");
                 return;
             }
+
             using (var context = new Model.ShopContext())
             {
                 var existingProduct = context.Products.FirstOrDefault(p => p.Name == _currentProduct.Name);
@@ -55,6 +59,18 @@ namespace Shop.View
                 {
                     context.Products.Add(_currentProduct);
                     context.SaveChanges();
+
+                    // Добавление товара на склад
+                    var newStorageItem = new Storage
+                    {
+                        ProductId = _currentProduct.ProductId,
+                        QuantityOfProducts = _currentProduct.Quantity,
+                        TotalCost = _currentProduct.PriceUnit * _currentProduct.Quantity,
+                        DateDelivery = DateTime.Today
+                    };
+                    context.Storages.Add(newStorageItem);
+                    context.SaveChanges();
+
                     MessageBox.Show($"Новый товар успешно добавлен.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
@@ -80,7 +96,9 @@ namespace Shop.View
                     Close();
                 }
                 else
+                {
                     Prod_Count.Text = "Новый товар";
+                }
             }
         }
     }

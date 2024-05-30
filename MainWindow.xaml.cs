@@ -46,7 +46,7 @@ namespace Shop
                     var seller = context.Sellers.FirstOrDefault(s => s.Login == login && s.Password == password);
                     if (seller != null)
                     {
-                        SaleWindowForSeller saleWindowForSeller = new SaleWindowForSeller(seller.SellerId); // Передача аргумента currentUserId
+                        SaleWindowForSeller saleWindowForSeller = new SaleWindowForSeller(seller.SellerId); 
                         this.Hide();
                         saleWindowForSeller.Show();
                     }
